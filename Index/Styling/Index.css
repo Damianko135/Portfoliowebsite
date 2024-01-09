@@ -1,0 +1,212 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    scroll-behavior: smooth;
+    text-align: center;
+    scroll-snap-type: y proximity;
+    user-select: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: transparent;
+    margin: 0%
+    ;
+    background-size: cover;
+    background-position: center;
+}
+
+.initial {
+    height: 100vh;
+}
+
+.intro {
+    background-color: darkred;
+    padding-top: 10px;
+    color: whitesmoke;
+    background-image: url(../Images/Welcome-to-Eifel.jpg);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    color: whitesmoke;
+    text-align: start;
+    margin: 0px;
+}
+
+.name, .nav {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    width: fit-content;
+    margin-left: 5px;
+    transition: color 1s ease-in-out; 
+    cursor: default;
+    user-select: none;
+}
+
+.name:hover {
+    color: red;
+    animation: wiggle 4s ease-in-out infinite; 
+    animation-delay: 0.5s;
+    
+}
+
+@keyframes wiggle {
+    50% {
+        transform: rotate(-20deg);
+    }
+    0%, 100% {
+        transform: rotate(0deg);
+    } 
+}
+
+.nav {
+    margin-right: 20%;
+    letter-spacing: 1px;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+    gap: auto;
+}
+
+a {
+    margin-right: 15px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.nav-item {
+    font-size: 1rem;
+    line-height: 24px;
+    text-align: left;
+    letter-spacing: normal;
+    transition: color 1s;
+}
+
+.nav-item:hover {
+    color: chartreuse;
+    font-size: 1.1rem;
+    font-family: cursive;
+    animation: ship 2.5s ease-in-out infinite;
+    animation-delay: 0.5s;
+}
+
+@keyframes ship {
+    0% {
+        transform: rotate(0deg);
+    } 
+    25% {
+        transform: rotate(-20deg);
+    }
+    75% {
+        transform: rotate(20deg);
+    }
+}
+
+.intro h1 {
+    font-size: 2rem;
+    transition: font-size 1s ease-in-out, letter-spacing 0.5s ease-in-out;
+    transition-delay: 0.2s;
+    width: fit-content;
+    margin-inline: auto;
+    height: 2rem; 
+    line-height: 2rem; 
+}
+
+.intro h1:hover {
+    letter-spacing: 0.2rem;
+    font-size: 2.2rem;
+    color: inherit, blueviolet;
+}
+
+
+.me {
+    height: 100vh;
+    padding-top: 5px;
+    background-color: aqua; /* Set the background color */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    opacity: 0; /* Initially hide the content */
+    transition: opacity 1s ease-out; /* Add transition for opacity */
+}
+
+.me.active .content {
+    animation: Slide 1s ease-in;
+    opacity: 1;
+}
+
+@keyframes Slide {
+    0% {
+        opacity: 0;
+        margin-left: -20%; /* Starting off-screen left */
+    }
+    100% {
+        opacity: 1;
+        margin-left: 0%; /* Moving to the center */
+    }
+}
+
+
+
+
+.contact {
+    background-color: whitesmoke;
+    color: black;
+    min-height: 15vh;
+    max-height: 100vh;
+    margin-top: 0%;
+}
+
+.contact img {
+    max-height: 25px;
+    max-width: 25px;
+}
+
+.socials {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: 40%;
+}
+
+.socials a {
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    margin-right: 20px;
+    width: auto; 
+}
+
+.socials a img {
+    display: block;
+    max-width: 25px;
+    max-height: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+.socials a img:hover {
+    transform: scale(1.3);
+    filter: grayscale(100%);
+}
+
+.socials a p {
+    margin: 0;
+    font-size: 0.5rem;
+}
+
