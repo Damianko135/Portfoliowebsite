@@ -1,5 +1,7 @@
 <?php
 
+private [
+
 session_start();
 define('DB_HOST', 'localhost');
 define('DB_PORT', 3306);
@@ -16,7 +18,7 @@ try {
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
 }
-
+]
 
 $links = isset($_REQUEST['data']) ? trim($_REQUEST['data']) : '';
 $Username = isset($_REQUEST['username']) ? trim($_REQUEST['username']) : '';

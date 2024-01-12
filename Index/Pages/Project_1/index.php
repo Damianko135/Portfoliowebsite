@@ -69,13 +69,9 @@ $link = $linksData[$randomNumber]["Link"];
       </form>
       <?php
       if (!empty($_SESSION["Username"]) && isset($_SESSION["Username"])) {
-        echo "<br>";
-
         echo "<p style='color: yellow;'>Welcome back, " . $_COOKIE["User"] . "</p>";
       }
       if (isset($_SESSION["Usermessage"])) {
-        echo "<br>";
-
         echo "<span style='color: aqua;'>" . $_SESSION["Usermessage"] . "</span>";
       }
       ?>
