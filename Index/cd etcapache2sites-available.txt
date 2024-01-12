@@ -1,0 +1,20 @@
+cd /etc/apache2/sites-available/
+ls -al 
+sudo nano ^.conf
+
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+    ServerName your_domain
+    ServerAlias www.your_domain
+    DocumentRoot /var/www/html/BBB/public
+
+    <Directory /var/www/html/BBB/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
