@@ -42,6 +42,8 @@ body {
     color: whitesmoke;
     text-align: start;
     margin: 0px;
+    height: max-content;
+    width: 100%;
 }
 
 .name, .nav {

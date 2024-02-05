@@ -25,8 +25,8 @@
                 </div>
             </a>
             <a href="Project_2/">
-                <img src="../Images/Project_1.jpg" alt="Project_1">
-                <p>Project 1</p>
+                <img src="../Images/Project_2.jpg" alt="Project_2">
+                <p>Project 2</p>
                 <div class="hidden">
                     <br>
                     <h2>
@@ -35,7 +35,7 @@
                 </div>
             </a>
             <a href="Project_1/index.php">
-                <p>Project 1</p>
+                <p>Project 3</p>
 
                 <img src="../Images/Project_1.jpg" alt="Project_1">
                 <div class="hidden">
