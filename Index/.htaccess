@@ -36,10 +36,10 @@ DirectoryIndex index.php Projects.php camping.php Home.php 500.php
 </FilesMatch>
 
 ## Error Pages
-ErrorDocument 401 /401.php
-ErrorDocument 403 /403.php
-ErrorDocument 404 /404.php
-ErrorDocument 500 /500.php
+# ErrorDocument 401 /401.php
+# ErrorDocument 403 /403.php
+# ErrorDocument 404 /404.php
+# ErrorDocument 500 /500.php
 
 ## Redirect non-existing pages to index page
 # Best use for single page applications
