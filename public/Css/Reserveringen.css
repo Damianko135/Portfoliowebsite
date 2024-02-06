@@ -1,0 +1,124 @@
+html {
+  font-size: 1.4vh;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.BG {
+  background-image: url("../Images/Home.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: calc(100vh - 60px);
+  width: 100%;
+  font-family: "Centra", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: top;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+}
+
+.Table-head {
+  margin-top: 3rem;
+  display: flex;
+  width: 90%;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+ul.Table-head > li {
+  background-color: #086700;
+  color: white;
+}
+
+ul.Table-head > li:first-child {
+  border-top-left-radius: 1.5rem;
+}
+
+ul.Table-head > li:last-child {
+  border-top-right-radius: 1.5rem;
+}
+
+.persoonsgegevens {
+  color: white;
+  display: flex;
+  flex-direction: column; /* Display vertically */
+  max-height: 54rem;
+  width: 90%;
+  overflow-y: scroll;
+  padding: 0.2rem;
+  margin-top: -0.2rem;
+}
+
+.Table-content {
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  display: flex; /* Corrected to flex */
+  flex-direction: row; /* Display horizontally */
+}
+
+ul.Table-content > li {
+  background-color: rgb(197, 196, 196);
+  color: black;
+}
+
+ul.Table-content:nth-child(even) > li {
+  background-color: rgb(139, 139, 139);
+  color: white;
+}
+
+ul.Table-content.selected > li:not(:first-child) {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+ul.Table-content:nth-child(even).selected > li:not(:first-child) {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+ul.Table-content > li:first-child {
+  background-color: #086700;
+  color: rgb(255, 255, 255);
+}
+
+.persoonsgegevens > ul.Table-content:last-child > li:first-child {
+  border-bottom-left-radius: 1.5rem;
+}
+
+.persoonsgegevens > ul.Table-content:last-child > li:last-child {
+  border-bottom-right-radius: 1.5rem;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  flex: 1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 1.2rem;
+  list-style: none;
+  outline: 0.2rem solid rgb(0, 0, 0);
+  min-width: 0;
+}
+
+li:first-child {
+  flex: 1;
+}
+
+li:second-child {
+  flex: 2;
+}
+
+li::marker {
+  list-style-image: none;
+}/*# sourceMappingURL=Reserveringen.css.map */
