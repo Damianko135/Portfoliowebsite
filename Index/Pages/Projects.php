@@ -34,7 +34,7 @@
                     </h2>
                 </div>
             </a>
-            <a href="Project_1/index.php">
+            <a href="Project_3/">
                 <p>Project 3</p>
 
                 <img src="../Images/Project_1.jpg" alt="Project_1">
