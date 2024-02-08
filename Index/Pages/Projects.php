@@ -34,7 +34,7 @@
                     </h2>
                 </div>
             </a>
-            <a href="Project_3/">
+            <a href="Project_3/GitHub/cscGroep/Config.php">
                 <p>Project 3</p>
 
                 <img src="../Images/Project_1.jpg" alt="Project_1">
