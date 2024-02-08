@@ -27,7 +27,7 @@ RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
 RewriteRule ^ /%1 [R=301,NE,L]
 
 ## Set the default directory index page order
-DirectoryIndex index.php index.html Projects.php camping.php Home.php 500.php
+DirectoryIndex index.php index.html Projects.php Choice.php Config.php 500.php
 
 ## Forbid access to .htaccess and Connection.php files
 <FilesMatch "(\.htaccess|Connection\.php|Send_Email\.php)">
