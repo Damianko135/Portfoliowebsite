@@ -14,16 +14,15 @@ To run this website locally on your device, follow these steps:
 
 ### Prerequisites
 
-Ensure that you have the following software installed on your Linux system:
+Ensure that you have the following software installed on your system:
 
-- `curl`
-- `Apache` (web server)
-- `ufw` (firewall)
-- `mysql-server` (MySQL database server)
-- `php` (PHP programming language)
-- `libapache2-mod-php` (Apache PHP module)
-- `php-mysql` (PHP MySQL module)
-- `git` (version control system)
+- **Node.js**: v12.0.0 or higher
+- **npm**: v6.0.0 or higher
+- **React**: v17.0.0 or higher
+- **MySQL**: v5.7 or higher
+
+## I'd suggest you just run the following code, since it also sets the Virtual Host for you.
+# And you can always use this as a template
 
 ### Setup Script
 
