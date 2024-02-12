@@ -4,9 +4,9 @@ Welcome to my portfolio website repository! This website showcases my projects, 
 
 ## Features
 
-- **Projects**: Explore my latest projects and contributions.
-- **Skills**: Learn about my technical skills and expertise.
-- **Experience**: Discover my professional experience and achievements.
+- <span style="font-weight:bold; color:#3399ff;">Projects</span>: Explore my latest projects and contributions.
+- <span style="font-style:italic; color:#ff3333;">Skills</span>: Learn about my technical skills and expertise.
+- <span style="font-weight:bold; color:#00cc66; font-family:'Comic Sans MS', cursive, sans-serif;">Experience</span>: Discover my professional experience and achievements.
 
 ## Getting Started
 
@@ -21,10 +21,13 @@ Ensure that you have the following software installed on your system:
 - **React**: v17.0.0 or higher
 - **MySQL**: v5.7 or higher
 
-## I'd suggest you just run the following code, since it also sets the Virtual Host for you.
-# And you can always use this as a template
+## Setup Scripts for Linux and Windows
 
-### Setup Script
+You can set up the website on both Linux and Windows servers. Choose the appropriate setup script based on your system:
+
+### Linux Setup
+
+If you are using a Linux server, run the following commands:
 
 1. Clone this repository to your local machine:
 
@@ -45,6 +48,37 @@ Ensure that you have the following software installed on your system:
     ```
 
 4. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+
+### Windows Setup
+
+For Windows servers, execute the following steps:
+
+1. Clone this repository to your local machine:
+
+    ```powershell
+    git clone https://github.com/Damianko135/Portfoliowebsite.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```powershell
+    cd Portfoliowebsite
+    ```
+
+3. Run the setup script:
+
+    ```powershell
+    .\Windows_Setup.ps1
+    ```
+
+4. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+
+## Uninstallation Scripts
+
+To uninstall the packages installed by the setup scripts and remove any associated software, you can use the provided uninstallation scripts:
+
+- **Linux**: Execute the `Linux_Uninstall.sh` script.
+- **Windows**: Run the `Windows_Uninstall.ps1` script.
 
 ## Customization
 
