@@ -45,7 +45,6 @@ if [ ! -d ".git" ]; then
 else
     # Update the existing repository
     sudo git fetch origin "$branch"
-    sudo git reset --hard "origin/$branch"
     sudo git clean -df
 fi
 
