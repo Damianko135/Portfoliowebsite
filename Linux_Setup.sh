@@ -18,7 +18,9 @@ sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages
 sudo apt install curl apache2 ufw mysql-server php libapache2-mod-php php-mysql git -y
 
 # Allow SSH and Apache through the firewall
+# But doesnt enable it
 sudo ufw allow 'OpenSSH'
+sudo ufw allow '22'
 sudo ufw allow "Apache Full"
 sudo a2enmod rewrite
 sudo systemctl restart apache2
