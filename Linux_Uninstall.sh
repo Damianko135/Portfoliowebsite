@@ -8,7 +8,6 @@ sudo rm -rf /var/www/html
 
 
 # Remove firewall rules
-sudo ufw delete allow 'OpenSSH'
 sudo ufw delete allow "Apache Full"
 
 # Reload firewall
