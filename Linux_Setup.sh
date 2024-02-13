@@ -90,7 +90,8 @@ echo "Now you need to run the SQL code from the repository:"
 
 sleep 5
 
-sudo mysql
+## If you haven't set a password yet, you can just press enter
+sudo mysql -p
 
 clear
 
