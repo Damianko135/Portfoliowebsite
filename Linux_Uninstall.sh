@@ -5,7 +5,7 @@ destination_dir="/var/www/html/"
 Virtual_Host="/var/www/html/Index"
 
 # Remove permissions reset scheduled after 10 minutes
-ps -ef | grep "sudo chmod -R 755 $destination_dir/*" | grep -v grep | awk '{print $2}' | xargs sudo kill -9
+ps -ef | grep "sudo chmod -R 755 $destination_dir" | grep -v grep | grep -v $$ | awk '{print $2}' | xargs sudo kill -9
 
 # Undo changes to Apache Virtual Host Configuration
 sudo sed -i "s#DocumentRoot $Virtual_Host#DocumentRoot /var/www/html#" /etc/apache2/sites-available/000-default.conf
