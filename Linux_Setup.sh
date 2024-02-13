@@ -90,7 +90,7 @@ clear
 # Check if Connection.php doesn't exist in the specified path
 if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
     # Copy Connection.php to the specified path
-    sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to copy Connection.php"
+    sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" && sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"  || handle_error "Failed to copy Connection.php"
 fi
 
 # Schedule permissions reset after 10 minutes.
