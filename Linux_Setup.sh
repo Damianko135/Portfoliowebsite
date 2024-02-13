@@ -92,7 +92,7 @@ sleep 5
 
 ## If you haven't set a password yet, you can just press enter
 sudo mysql -p
-sleep 20
+sleep 5
 clear
 
 # Schedule permissions reset after 10 minutes.
