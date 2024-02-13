@@ -46,14 +46,19 @@ fi
 # Navigate to the destination directory
 cd "$destination_dir" || handle_error "Failed to navigate to destination directory"
 
+# Stash local changes to Connection.php if any
+
 # Clone or update the repository
 if [ ! -d ".git" ]; then
     # Clone the repository if it doesn't exist
     sudo git clone -b "$branch" --single-branch "$github_repo" . || handle_error "Failed to clone repository"
 else
     # Update the existing repository
+    git stash save "Stashing local changes to Connection.php" || handle_error "Failed to stash local changes to Connection.php"
     sudo git fetch origin "$branch" || handle_error "Failed to fetch updates from repository"
+    git stash apply || handle_error "Failed to apply stashed changes to Connection.php"
 fi
+
 
 ### Edit Apache Virtual Host Configuration
 ## This section updates the Apache virtual host configuration to point to the correct directory.
