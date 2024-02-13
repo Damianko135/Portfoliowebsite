@@ -67,7 +67,15 @@ echo "<Directory $Virtual_Host>
 
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && echo 'Apache reloaded'|| echo 'Cannot reload apache'
+#!/bin/bash
 
+# Define the URL of the page you want to force reload
+page_url=$(curl -s ipv4.icanhazip.com)
+
+# Send a request to the server to force reload the page
+curl -X GET -H "Cache-Control: no-cache" "$page_url"
+
+## Update Everything Everything:
 sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/*) &
