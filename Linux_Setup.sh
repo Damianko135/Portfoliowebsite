@@ -37,6 +37,7 @@ sudo chown -R "$(whoami)":"$(whoami)" /var/www/html || handle_error "Failed to s
 sudo chmod -R 755 /var/www/html || handle_error "Failed to set permissions for HTML directory"
 
 # Destination directory where you want to place the files
+clear
 
 # Check if the destination directory exists, if not, create it
 if [ ! -d "$destination_dir" ]; then
@@ -91,8 +92,8 @@ echo "Now you need to run the SQL code from the repository:"
 sleep 5
 
 ## If you haven't set a password yet, you can just press enter
-sudo mysql -p
-
+sudo mysql
+sleep 20
 clear
 
 # Schedule permissions reset after 10 minutes.
