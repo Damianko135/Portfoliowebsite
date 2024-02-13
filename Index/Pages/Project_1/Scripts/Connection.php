@@ -39,3 +39,7 @@ function executeQuery($sql) {
         throw new Exception("Query execution failed: " . $e->getMessage());
     }
 }
+
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
