@@ -37,7 +37,6 @@ sudo chown -R "$(whoami)":"$(whoami)" /var/www/html || handle_error "Failed to s
 sudo chmod -R 755 /var/www/html || handle_error "Failed to set permissions for HTML directory"
 
 # Destination directory where you want to place the files
-clear
 
 # Check if the destination directory exists, if not, create it
 if [ ! -d "$destination_dir" ]; then
@@ -46,8 +45,6 @@ fi
 
 # Navigate to the destination directory
 cd "$destination_dir" || handle_error "Failed to navigate to destination directory"
-
-# Stash local changes to Connection.php if any
 
 # Clone or update the repository
 if [ ! -d ".git" ]; then
@@ -73,7 +70,6 @@ else
     fi
 fi
 
-
 ### Edit Apache Virtual Host Configuration
 ## This section updates the Apache virtual host configuration to point to the correct directory.
 # It also allows .htaccess files to override Apache configuration settings.
@@ -96,6 +92,7 @@ fi
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| handle_error "Failed to reload Apache"
 
+clear
 
 echo "Setup completed successfully"
 
