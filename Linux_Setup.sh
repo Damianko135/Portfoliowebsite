@@ -49,8 +49,6 @@ else
     sudo git fetch origin "$branch"
 fi
 
-sudo rm -rf /var/www/html/index.html
-
 # Edit Apache Virtual Host Configuration
 # This section updates the Apache virtual host configuration to point to the correct directory.
 # It also allows .htaccess files to override Apache configuration settings.
