@@ -51,29 +51,11 @@ if [ ! -d ".git" ]; then
     # Clone the repository if it doesn't exist
     sudo git clone -b "$branch" --single-branch "$github_repo" "$destination_dir" || handle_error "Failed to clone repository"
 else
-    # Update the existing repository
-    cd "$destination_dir" || handle_error "Failed to navigate to destination directory"
-    if [ -n "$(git status --porcelain)" ]; then
-        echo "Stashing local changes..."
-        git stash save "Stashing local changes" || handle_error "Failed to stash local changes"
-        echo "Local changes stashed successfully."
-    else
-        echo "No local changes to stash."
-    fi
     sudo git fetch origin "$branch" || handle_error "Failed to fetch updates from repository"
-    if [ -n "$(git stash list)" ]; then
-        echo "Applying stashed changes..."
-        git stash apply || handle_error "Failed to apply stashed changes"
-        echo "Stashed changes applied successfully."
-    else
-        echo "No stashed changes to apply."
-    fi
 fi
 
-### Edit Apache Virtual Host Configuration
-## This section updates the Apache virtual host configuration to point to the correct directory.
-# It also allows .htaccess files to override Apache configuration settings.
-# The virtual host configuration file path
+## Edit Apache Virtual Host Configuration
+# This section updates the Apache virtual host configuration to point to the correct directory.
 VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
 
 # Backup the original configuration file if not already backed up
@@ -104,6 +86,12 @@ echo "If you haven't set a password yet, you can just press enter"
 sudo mysql -p
 sleep 5
 clear
+
+# Check if Connection.php doesn't exist in the specified path
+if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
+    # Copy Connection.php to the specified path
+    sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to copy Connection.php"
+fi
 
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/ &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
