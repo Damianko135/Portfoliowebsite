@@ -12,7 +12,6 @@ sudo apt update
 sudo apt full-upgrade -y
 
 # Upgrade held back packages
-sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages
 
 # Install necessary packages: curl, Apache, firewall, MySQL, PHP, Git
 sudo apt install curl apache2 ufw mysql-server php libapache2-mod-php php-mysql git -y
@@ -50,5 +49,6 @@ else
     sudo git clean -df
 fi
 
+sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages
 # Schedule permissions reset after 3 hours
 (sleep 10800 && sudo chmod -R 755 /var/www/html/*) &
