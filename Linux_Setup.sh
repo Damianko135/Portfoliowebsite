@@ -66,7 +66,7 @@ echo "<Directory $Virtual_Host>
 </Directory>" | sudo tee -a /etc/apache2/sites-available/000-default.conf > /dev/null
 
 # Reload Apache to apply changes
-sudo systemctl restart apache2 && echo 'Apache reloaded'|| echo 'Cannot reload apache'
+sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| echo 'Cannot reload apache'
 #!/bin/bash
 
 # Define the URL of the page you want to force reload
