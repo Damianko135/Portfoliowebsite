@@ -11,6 +11,6 @@ ps -ef | grep "sudo chmod -R 755 $destination_dir" | grep -v grep | grep -v $$ |
 sudo rm -rf "$destination_dir"
 
 # Uninstall packages
-sudo apt purge -y curl apache2 mysql-server php libapache2-mod-php php-mysql git
+sudo apt purge -y curl apache2 mysql-server php libapache2-mod-php php-mysql
 sudo apt autoremove -y
 sudo apt autoclean -y
