@@ -52,12 +52,25 @@ cd "$destination_dir" || handle_error "Failed to navigate to destination directo
 # Clone or update the repository
 if [ ! -d ".git" ]; then
     # Clone the repository if it doesn't exist
-    sudo git clone -b "$branch" --single-branch "$github_repo" . || handle_error "Failed to clone repository"
+    sudo git clone -b "$branch" --single-branch "$github_repo" "$destination_dir" || handle_error "Failed to clone repository"
 else
     # Update the existing repository
-    git stash save "Stashing local changes to Connection.php" || handle_error "Failed to stash local changes to Connection.php"
+    cd "$destination_dir" || handle_error "Failed to navigate to destination directory"
+    if [ -n "$(git status --porcelain)" ]; then
+        echo "Stashing local changes..."
+        git stash save "Stashing local changes" || handle_error "Failed to stash local changes"
+        echo "Local changes stashed successfully."
+    else
+        echo "No local changes to stash."
+    fi
     sudo git fetch origin "$branch" || handle_error "Failed to fetch updates from repository"
-    git stash apply || handle_error "Failed to apply stashed changes to Connection.php"
+    if [ -n "$(git stash list)" ]; then
+        echo "Applying stashed changes..."
+        git stash apply || handle_error "Failed to apply stashed changes"
+        echo "Stashed changes applied successfully."
+    else
+        echo "No stashed changes to apply."
+    fi
 fi
 
 
@@ -96,4 +109,4 @@ sleep 5
 clear
 
 # Schedule permissions reset after 10 minutes.
-(sleep 600 && sudo chmod -R 755 /var/www/html/* &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
+(sleep 600 && sudo chmod -R 755 /var/www/html/ &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
