@@ -12,6 +12,9 @@ CREATE TABLE links (
     Date        VARCHAR(29)
 );
 
+INSERT INTO links (Link, Username, userIP, Date) 
+VALUES ('https://youtu.be/xvFZjo5PgG0?si=mWhC94yeSyCt2Nst', 'Damian', 'localhost', NOW());
+
 CREATE TABLE persoonsgegevens (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     VoorNaam VARCHAR(255),

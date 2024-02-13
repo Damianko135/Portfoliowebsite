@@ -21,6 +21,4 @@ sudo apt purge -y curl apache2 mysql-server php libapache2-mod-php php-mysql git
 sudo apt autoremove -y
 sudo apt autoclean -y
 
-# Reset system packages
-
 
