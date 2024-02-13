@@ -4,9 +4,9 @@ Welcome to my portfolio website repository! This website showcases my projects, 
 
 ## Features
 
-- <span style="font-weight:bold; color:#3399ff;">Projects</span>: Explore my latest projects and contributions.
-- <span style="font-style:italic; color:#ff3333;">Skills</span>: Learn about my technical skills and expertise.
-- <span style="font-weight:bold; color:#00cc66; font-family:'Comic Sans MS', cursive, sans-serif;">Experience</span>: Discover my professional experience and achievements.
+- **Projects**: Explore my latest projects and contributions.
+- *Skills*: Learn about my technical skills and expertise.
+- **Experience**: Discover my professional experience and achievements.
 
 ## Getting Started
 

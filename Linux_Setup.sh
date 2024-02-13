@@ -61,16 +61,18 @@ fi
 # The virtual host configuration file path
 VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
 
-# Backup the original configuration file
-sudo cp $VHOST_FILE "${VHOST_FILE}.bak" || handle_error "Failed to backup Apache virtual host configuration"
-
-# Set the document root to the destination directory
-sudo sed -i "s#DocumentRoot /var/www/html#DocumentRoot $Virtual_Host#" $VHOST_FILE || handle_error "Failed to update Apache virtual host configuration"
-
-# Allow .htaccess files to override settings
-echo "<Directory $Virtual_Host>
-    AllowOverride All
-</Directory>" | sudo tee -a $VHOST_FILE > /dev/null || handle_error "Failed to update Apache virtual host configuration"
+# Backup the original configuration file if not already backed up
+if [ ! -f "${VHOST_FILE}.bak" ]; then
+    sudo cp "$VHOST_FILE" "${VHOST_FILE}.bak" || handle_error "Failed to backup Apache virtual host configuration"
+    
+    # Set the document root to the destination directory
+    sudo sed -i "s#DocumentRoot /var/www/html#DocumentRoot $Virtual_Host#" "$VHOST_FILE" || handle_error "Failed to update Apache virtual host configuration"
+    
+    # Allow .htaccess files to override settings
+    echo "<Directory $Virtual_Host>
+        AllowOverride All
+    </Directory>" | sudo tee -a "$VHOST_FILE" > /dev/null || handle_error "Failed to update Apache virtual host configuration"
+fi
 
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| handle_error "Failed to reload Apache"
@@ -86,5 +88,4 @@ sleep 5
 sudo mysql
 
 # Schedule permissions reset after 10 minutes.
-
 (sleep 600 && sudo chmod -R 755 /var/www/html/* &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
