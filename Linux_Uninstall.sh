@@ -26,7 +26,7 @@ sudo apt remove --purge apache2 mysql-server php libapache2-mod-php php-mysql -y
 sudo ufw delete allow "Apache Full" || handle_error "Failed to revert Apache firewall rule"
 sudo rm -rf /var/www/html/ || handle_error "Failed to remove destination directory"
 
-sudo apt autoremove
-sudo apt autoclean
+sudo apt autoremove -y
+sudo apt autoclean -y
 
 echo "Reversion completed successfully"
