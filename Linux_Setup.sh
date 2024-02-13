@@ -2,7 +2,8 @@
 
 ## Change the variables accordingly
 # This is how you can pull my portfolio website and to setup almost everything that i used. With the exception being my own passwords.
-destination_dir="/var/www/html/Index"
+destination_dir="/var/www/html/"
+Virtual_Host="/var/www/html/Index"
 branch="main"  # Change this to your desired branch
 github_repo="https://github.com/Damianko135/Portfoliowebsite.git"
 directory="Index"  # Change this to the directory you want to pull
@@ -17,12 +18,12 @@ sudo apt full-upgrade -y
 sudo apt install curl apache2 ufw mysql-server php libapache2-mod-php php-mysql git -y
 
 # Allow SSH and Apache through the firewall
-# But doesnt enable it
 sudo ufw allow 'OpenSSH'
-sudo ufw allow '22'
 sudo ufw allow "Apache Full"
 sudo a2enmod rewrite
 sudo systemctl restart apache2
+
+sudo rm -rf /var/www/html/
 
 # Adjust permissions for default directory
 sudo mkdir -p /var/www/html
@@ -46,9 +47,31 @@ if [ ! -d ".git" ]; then
 else
     # Update the existing repository
     sudo git fetch origin "$branch"
-    sudo git clean -df
 fi
 
+sudo rm -rf /var/www/html/index.html
+
+# Edit Apache Virtual Host Configuration
+# This section updates the Apache virtual host configuration to point to the correct directory.
+# It also allows .htaccess files to override Apache configuration settings.
+
+# Define the virtual host configuration file path
+VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
+
+# Backup the original configuration file
+sudo cp $VHOST_FILE "${VHOST_FILE}.bak"
+
+# Set the document root to the destination directory
+sudo sed -i "s#DocumentRoot /var/www/html#DocumentRoot $Virtual_Host#" $VHOST_FILE || echo "Couldn't update the Virtual Host"
+
+# Allow .htaccess files to override settings
+echo "<Directory $Virtual_Host>
+    AllowOverride All
+</Directory>" | sudo tee -a /etc/apache2/sites-available/000-default.conf > /dev/null
+
+# Reload Apache to apply changes
+sudo systemctl reload apache2  && echo 'Apache reloaded'|| echo 'Cannot reload apache'
+
 sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages
-# Schedule permissions reset after 3 hours
-(sleep 10800 && sudo chmod -R 755 /var/www/html/*) &
+# Schedule permissions reset after 10 minutes.
+(sleep 600 && sudo chmod -R 755 /var/www/html/*) &
