@@ -81,7 +81,7 @@ clear
 
 echo "Setup completed successfully"
 
-echo "Now you need to run the SQL code in the repository:"
+echo "Now you need to run the SQL code from the repository:"
 
 sleep 5
 
