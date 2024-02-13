@@ -83,7 +83,6 @@ fi
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| handle_error "Failed to reload Apache"
 
-clear
 
 echo "Setup completed successfully"
 
@@ -92,7 +91,7 @@ echo "Now you need to run the SQL code from the repository:"
 sleep 5
 
 ## If you haven't set a password yet, you can just press enter
-sudo mysql
+sudo mysql -p
 sleep 20
 clear
 
