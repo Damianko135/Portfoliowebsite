@@ -70,7 +70,7 @@ sudo sed -i "s#DocumentRoot /var/www/html#DocumentRoot $Virtual_Host#" $VHOST_FI
 # Allow .htaccess files to override settings
 echo "<Directory $Virtual_Host>
     AllowOverride All
-</Directory>" | sudo tee -a /etc/apache2/sites-available/000-default.conf > /dev/null || handle_error "Failed to update Apache virtual host configuration"
+</Directory>" | sudo tee -a $VHOST_FILE > /dev/null || handle_error "Failed to update Apache virtual host configuration"
 
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| handle_error "Failed to reload Apache"
@@ -85,8 +85,5 @@ sleep 5
 
 sudo mysql
 
-echo "Virtual Host directory: $Virtual_Host"
-
-## Schedule permissions reset after 10 minutes.
-(sleep 600 && sudo chmod -R 755 /var/www/html/* &) || handle_error "Failed to schedule permissions reset"
-
+# Schedule permissions reset after 10 minutes.
+(sleep 600 && sudo chmod -R 755 /var/www/html/* &) && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
