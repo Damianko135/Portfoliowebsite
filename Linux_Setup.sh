@@ -21,7 +21,6 @@ sudo apt install curl apache2 ufw mysql-server php libapache2-mod-php php-mysql 
 sudo ufw allow 'OpenSSH'
 sudo ufw allow "Apache Full"
 sudo a2enmod rewrite
-sudo systemctl restart apache2
 
 sudo rm -rf /var/www/html/
 
@@ -49,11 +48,10 @@ else
     sudo git fetch origin "$branch"
 fi
 
-# Edit Apache Virtual Host Configuration
-# This section updates the Apache virtual host configuration to point to the correct directory.
+### Edit Apache Virtual Host Configuration
+## This section updates the Apache virtual host configuration to point to the correct directory.
 # It also allows .htaccess files to override Apache configuration settings.
-
-# Define the virtual host configuration file path
+# The virtual host configuration file path
 VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
 
 # Backup the original configuration file
@@ -68,7 +66,7 @@ echo "<Directory $Virtual_Host>
 </Directory>" | sudo tee -a /etc/apache2/sites-available/000-default.conf > /dev/null
 
 # Reload Apache to apply changes
-sudo systemctl reload apache2  && echo 'Apache reloaded'|| echo 'Cannot reload apache'
+sudo systemctl restart apache2 && echo 'Apache reloaded'|| echo 'Cannot reload apache'
 
 sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages
 # Schedule permissions reset after 10 minutes.
