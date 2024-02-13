@@ -74,10 +74,15 @@ echo "<Directory $Virtual_Host>
 
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| handle_error "Failed to reload Apache"
+
 clear
+
 echo "Setup completed successfully"
+
 echo "Now you need to run the SQL code in the repository:"
+
 sleep 5
+
 sudo mysql
 ## Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/*) & || handle_error "Failed to schedule permissions reset"
