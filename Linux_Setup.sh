@@ -86,4 +86,5 @@ sleep 5
 sudo mysql
 
 # Schedule permissions reset after 10 minutes.
-(sleep 600 && sudo chmod -R 755 /var/www/html/* &) && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
+
+(sleep 600 && sudo chmod -R 755 /var/www/html/* &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
