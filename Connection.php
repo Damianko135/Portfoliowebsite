@@ -2,7 +2,7 @@
 
 define('DB_HOST', 'localhost');
 define('DB_PORT', 3306);
-define('DB_NAME', 'portfolio');
+define('DB_NAME', 'Portfolio');
 define('DB_USER', 'root');
 // Set password:
 define('DB_PASS', '');
