@@ -29,49 +29,57 @@ You can set up the website on both Linux and Windows servers. Choose the appropr
 
 If you are using a Linux server, run the following commands:
 
-1. Clone this repository to your local machine:
-
+1. Ensure Git is installed:
     ```bash
-    sudo git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    # For Debian-based systems like Ubuntu
+    sudo apt install git
     ```
 
-2. Navigate to the project directory:
+2. Clone this repository to your local machine:
+
+    ```bash
+    git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    ```
+
+3. Navigate to the project directory:
 
     ```bash
     cd Portfoliowebsite
     ```
 
-3. Run the setup script:
+4. Run the setup script:
 
     ```bash
     bash Linux_Setup.sh
     ```
 
-4. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+5. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
 
 ### Windows Setup
 
 For Windows servers, execute the following steps:
 
-1. Clone this repository to your local machine:
+1. Make sure Git is installed. If not, download and install it from the official website: [Git](https://git-scm.com/downloads).
+
+2. Clone this repository to your local machine:
 
     ```powershell
-    sudo git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
-2. Navigate to the project directory:
+3. Navigate to the project directory:
 
     ```powershell
     cd Portfoliowebsite
     ```
 
-3. Run the setup script:
+4. Run the setup script:
 
     ```powershell
     .\Windows_Setup.ps1
     ```
 
-4. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+5. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
 
 ## Uninstallation Scripts
 
