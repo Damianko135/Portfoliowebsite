@@ -70,7 +70,7 @@ sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache 
 
 clear
 
-# Check if Connection.php doesn't exist in the specified path
+# Check if Connection.php exists in the specified path
 if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
     # Copy Connection.php to the specified path
     if sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
@@ -78,7 +78,10 @@ if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; the
     else
         handle_error "Failed to copy Connection.php"
     fi
+else
+    echo "Connection.php already exists. Skipping copy."
 fi
+
 
 # Open Connection.php for editing only if it was copied
 if [ -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
