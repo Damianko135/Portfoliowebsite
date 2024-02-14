@@ -29,4 +29,6 @@ sudo rm -rf /var/www/html/ || handle_error "Failed to remove destination directo
 sudo apt autoremove -y
 sudo apt autoclean -y
 
+clear 
+
 echo "Reversion completed successfully"
