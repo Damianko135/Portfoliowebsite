@@ -32,7 +32,8 @@ If you are using a Linux server, run the following commands:
 1. Clone this repository to your local machine:
 
     ```bash
-    git clone https://github.com/Damianko135/Portfoliowebsite.git
+    # Clone the repository
+    sudo git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || handle_error "Failed to clone repository"
     ```
 
 2. Navigate to the project directory:
@@ -56,7 +57,7 @@ For Windows servers, execute the following steps:
 1. Clone this repository to your local machine:
 
     ```powershell
-    git clone https://github.com/Damianko135/Portfoliowebsite.git
+    sudo git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || handle_error "Failed to clone repository"
     ```
 
 2. Navigate to the project directory:
