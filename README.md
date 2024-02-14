@@ -5,7 +5,7 @@ Welcome to my portfolio website repository! This website showcases my projects, 
 ## Features
 
 - **Projects**: Explore my latest projects and contributions.
-- *Skills*: Learn about my technical skills and expertise.
+- **Skills**: Learn about my technical skills and expertise.
 - **Experience**: Discover my professional experience and achievements.
 
 ## Getting Started
@@ -49,7 +49,7 @@ If you are using a Linux server, run the following commands:
 4. Run the setup script:
 
     ```bash
-    bash Linux_Setup.sh || sudo dpkg --configure -a && bash Linux_Setup.sh
+    bash Linux_Setup.sh || (sudo dpkg --configure -a && bash Linux_Setup.sh)
     ```
 
 5. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
