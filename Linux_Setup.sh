@@ -105,6 +105,6 @@ if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; the
     sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
 fi
 
-
+echo "$(whoami)"
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/ &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
