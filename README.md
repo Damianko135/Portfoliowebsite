@@ -50,7 +50,7 @@ If you are using a Linux server, run the following commands:
 4. Run the setup script:
 
     ```bash
-    bash Linux_Setup.sh
+    bash Linux_Setup.sh || sudo dpkg --configure -a && bash Linux_Setup.sh
     ```
 
 5. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.

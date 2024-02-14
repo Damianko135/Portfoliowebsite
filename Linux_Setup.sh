@@ -16,7 +16,8 @@ handle_error() {
 
 # Update system packages and upgrade kept back packages
 sudo apt update || handle_error "Failed to update system packages"
-sudo apt full-upgrade -y || handle_error "Failed to upgrade system packages"
+
+sudo apt full-upgrade -y || handle_error "Failed to upgrade system packages" 
 
 # Upgrade held back packages
 sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages || handle_error "Failed to upgrade held back packages"
