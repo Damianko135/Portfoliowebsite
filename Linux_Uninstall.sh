@@ -28,8 +28,13 @@ sudo rm -rf /var/www/html/ || handle_error "Failed to remove destination directo
 
 sudo apt autoremove -y
 sudo apt autoclean -y
+
 cd ..
+
 sudo rm -rf Portfoliowebsite
+
 clear 
+
+echo "Removed the scripts"
 
 echo "Reversion completed successfully"
