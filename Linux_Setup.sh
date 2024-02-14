@@ -7,13 +7,6 @@ branch="main"  # Change this to your desired branch
 github_repo="https://github.com/Damianko135/Portfoliowebsite.git"
 directory="Index"  # Change this to the directory you want to pull
 
-# Function to handle errors
-handle_error() {
-    local error_message="$1"
-    echo "Error: $error_message" >&2
-    exit 1
-}
-
 # Update system packages and upgrade kept back packages
 sudo apt update || handle_error "Failed to update system packages"
 
@@ -77,6 +70,22 @@ sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache 
 
 clear
 
+# Check if Connection.php doesn't exist in the specified path
+if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
+    # Copy Connection.php to the specified path
+    if sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
+        echo "Connection.php copied successfully."
+    else
+        handle_error "Failed to copy Connection.php"
+    fi
+fi
+
+# Open Connection.php for editing only if it was copied
+if [ -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
+    sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
+fi
+
+# Error message after the screen is cleared
 echo "Setup completed successfully"
 
 echo "Now you need to run the SQL code from the repository:"
@@ -89,22 +98,13 @@ echo "And use this to set a password: ALTER USER 'root'@'localhost' IDENTIFIED W
 sudo mysql -p
 sleep 5
 clear
+# Function to handle errors
 
-# Check if Connection.php doesn't exist in the specified path
-if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
-    # Copy Connection.php to the specified path
-    if sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
-        echo "Connection.php copied successfully."
-    else
-        handle_error "Failed to copy Connection.php"
-    fi
-fi
+handle_error() {
+    local error_message="$1"
+    echo "Error: $error_message" >&2
+    exit 1
+}
 
-# Open Connection.php for editing only if it was copied
-if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
-    sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
-fi
-
-echo "$(whoami)"
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/ &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
