@@ -38,7 +38,7 @@ If you are using a Linux server, run the following commands:
 2. Clone this repository to your local machine:
 
     ```bash
-    git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    git clone -b Bash_Script --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
 3. Navigate to the project directory:
@@ -64,7 +64,7 @@ For Windows servers, execute the following steps:
 2. Clone this repository to your local machine:
 
     ```powershell
-    git clone -b Bash_Scripts --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    git clone -b Bash_Script --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
 3. Navigate to the project directory:
