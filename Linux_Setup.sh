@@ -68,13 +68,14 @@ fi
 # Reload Apache to apply changes
 sudo systemctl restart apache2 && sudo systemctl reload apache2 && echo 'Apache reloaded'|| handle_error "Failed to reload Apache"
 
-clear
 
+clear
 # Check if Connection.php exists in the specified path
 if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
     # Copy Connection.php to the specified path
     if sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
         echo "Connection.php copied successfully."
+        sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
     else
         handle_error "Failed to copy Connection.php"
     fi
@@ -83,10 +84,6 @@ else
 fi
 
 
-# Open Connection.php for editing only if it was copied
-if [ -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
-    sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
-fi
 
 # Error message after the screen is cleared
 echo "Setup completed successfully"
