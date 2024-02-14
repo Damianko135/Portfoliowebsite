@@ -31,7 +31,6 @@ If you are using a Linux server, run the following commands:
 
 1. Ensure Git is installed:
     ```bash
-    # For Debian-based systems like Ubuntu
     sudo apt install git
     ```
 
