@@ -81,9 +81,11 @@ echo "Setup completed successfully"
 
 echo "Now you need to run the SQL code from the repository:"
 
-sleep 5
-
 echo "If you haven't set a password yet, you can just press enter"
+
+echo "And use this to set a password: ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password';
+"
+
 sudo mysql -p
 sleep 5
 clear
