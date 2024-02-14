@@ -32,7 +32,7 @@ If you are using a Linux server, run the following commands:
 1. Clone this repository to your local machine:
 
     ```bash
-sudo git clone -b master --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    sudo git clone -b master --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
 2. Navigate to the project directory:
@@ -56,7 +56,7 @@ For Windows servers, execute the following steps:
 1. Clone this repository to your local machine:
 
     ```powershell
-sudo git clone -b master --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    sudo git clone -b master --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
 2. Navigate to the project directory:
