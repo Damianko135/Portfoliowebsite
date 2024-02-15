@@ -82,7 +82,7 @@ if [ ! -f "$destination_file" ] || ! cmp -s "$source_file" "$destination_file"; 
 else
     echo "Connection.php already exists and is identical. Skipping copy."
 fi
-
+clear
 # Success message
 echo "Setup completed successfully"
 
