@@ -11,7 +11,7 @@ handle_error() {
 VHOST_FILE="/etc/apache2/sites-available/000-default.conf"
 if [ -f "${VHOST_FILE}.bak" ]; then
     sudo cp "${VHOST_FILE}.bak" "$VHOST_FILE" || handle_error "Failed to restore Apache virtual host configuration"
-    sudo rm "${VHOST_FILE}.bak" || handle_error "Failed to remove backup of Apache virtual host configuration"
+    sudo rm -rf "${VHOST_FILE}.bak" || handle_error "Failed to remove backup of Apache virtual host configuration"
 fi
 
 # Restart Apache to apply changes
