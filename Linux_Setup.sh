@@ -4,7 +4,7 @@
 
 # Change the variables accordingly
 destination_dir="/var/www/html"
-virtual_host="/var/www/html/Index/"
+virtual_host="/var/www/html/Index/Index"
 branch="main"  # Change this to your desired branch
 github_repo="https://github.com/Damianko135/Portfoliowebsite.git"
 directory="Index"  # Change this to the directory you want to pull
@@ -36,7 +36,7 @@ sudo chmod -R 755 "$destination_dir" || handle_error "Failed to set permissions 
 cd "$destination_dir" || handle_error "Failed to navigate to destination directory"
 if [ ! -d ".git" ]; then
     # Clone the repository if it doesn't exist
-    sudo git clone -b "$branch" --single-branch "$github_repo" || handle_error "Failed to clone repository"
+    sudo git clone -b "$branch" --single-branch "$github_repo" "$directory" || handle_error "Failed to clone repository"
 else
     sudo git -C "$directory" fetch origin "$branch" || handle_error "Failed to fetch updates from repository"
 fi
