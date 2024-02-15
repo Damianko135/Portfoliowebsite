@@ -21,66 +21,44 @@ Ensure that you have the following software installed on your system:
 - **React**: v17.0.0 or higher
 - **MySQL**: v5.7 or higher
 
-## Setup Scripts for Linux and Windows
+## Setup Script
 
-You can set up the website on both Linux and Windows servers. Choose the appropriate setup script based on your system:
+You can set up the website on both Linux and Windows servers using the provided setup script.
 
 ### Linux Setup
 
-If you are using a Linux server, run the following commands:
-
-1. Ensure Git is installed:
-    ```bash
-    sudo apt install git
-    ```
-
-2. Clone this repository to your local machine:
+1. Clone this repository to your local machine:
 
     ```bash
     git clone -b Bash_Script --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
-3. Navigate to the project directory:
+2. Run the setup script from the cloned directory:
 
     ```bash
-    cd Portfoliowebsite
+    bash Portfoliowebsite/Linux_Setup.sh || (sudo dpkg --configure -a && bash Portfoliowebsite/Linux_Setup.sh)
     ```
 
-4. Run the setup script:
-
-    ```bash
-    bash Linux_Setup.sh || (sudo dpkg --configure -a && bash Linux_Setup.sh)
-    ```
-
-5. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+3. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
 
 ### Windows Setup
 
-For Windows servers, execute the following steps:
-
-1. Make sure Git is installed. If not, download and install it from the official website: [Git](https://git-scm.com/downloads).
-
-2. Clone this repository to your local machine:
+1. Clone this repository to your local machine:
 
     ```powershell
     git clone -b Bash_Script --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
-3. Navigate to the project directory:
+2. Run the setup script from the cloned directory:
 
     ```powershell
     cd Portfoliowebsite
-    ```
-
-4. Run the setup script:
-
-    ```powershell
     .\Windows_Setup.ps1
     ```
 
-5. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+3. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
 
-## Uninstallation Scripts
+### Uninstallation Scripts
 
 To uninstall the packages installed by the setup scripts and remove any associated software, you can use the provided uninstallation scripts:
 
