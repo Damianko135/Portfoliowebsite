@@ -77,7 +77,6 @@ if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; the
     # Copy Connection.php to the specified path
     if sudo cp -n "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
         echo "Connection.php copied successfully."
-        sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
     else
         handle_error "Failed to copy Connection.php"
     fi
@@ -98,6 +97,6 @@ echo "And use this to set a password: ALTER USER 'root'@'localhost' IDENTIFIED W
 sudo mysql -p
 sleep 5
 clear
-
+echo "Don't forget to update the credentials"
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/ &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
