@@ -30,10 +30,10 @@ sudo apt autoremove -y
 sudo apt autoclean -y
 
 cd ..
+clear 
 
 sudo rm -rf Portfoliowebsite
 
-clear 
 
 echo "Removed the scripts"
 
