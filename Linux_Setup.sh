@@ -72,6 +72,8 @@ if [ ! -f "$destination_file" ] || ! cmp -s "$source_file" "$destination_file"; 
     
     # Copy Connection.php to the specified path
     if sudo rsync -a --ignore-existing "$source_file" "$destination_file"; then
+        clear
+        (sudo rm -rf "$source_file" && sudo nano "$destination_file" )|| echo "You can still alter the credentials at $destination_file"
         echo "Connection.php copied successfully."
         echo "You can manually edit the Connection.php file in $destination_dir/Index/Pages/Project_1/Scripts/ to provide the proper credentials."
     else
@@ -90,7 +92,6 @@ echo "If you haven't set a password yet, you can just press enter"
 echo "And use this to set a password: ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password';"
 sudo mysql -p
 sleep 5
-(sudo rm -rf "$source_file" && sudo nano "$destination_file" )|| echo "You can still alter the credentials at $destination_file"
 handle_error() {
     local error_message="$1"
     echo "Error: $error_message" >&2
