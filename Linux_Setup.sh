@@ -1,11 +1,6 @@
 #!/bin/bash
 
 # Function to handle errors
-handle_error() {
-    local error_message="$1"
-    echo "Error: $error_message" >&2
-    exit 1
-}
 
 # Change the variables accordingly
 destination_dir="/var/www/html"
@@ -70,10 +65,10 @@ sudo systemctl reload apache2 || handle_error "Failed to reload Apache"
 destination_file="$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"
 source_file="$destination_dir/Connection.php"
 if [ ! -f "$destination_file" ] || ! cmp -s "$source_file" "$destination_file"; then
-    # Debugging output
-    echo "Source file: $source_file"
-    echo "Destination file: $destination_file"
-    cmp -s "$source_file" "$destination_file"
+#     # Debugging output
+#     echo "Source file: $source_file"
+#     echo "Destination file: $destination_file"
+#     cmp -s "$source_file" "$destination_file"
     
     # Copy Connection.php to the specified path
     if sudo rsync -a --ignore-existing "$source_file" "$destination_file"; then
@@ -96,6 +91,10 @@ echo "And use this to set a password: ALTER USER 'root'@'localhost' IDENTIFIED W
 sudo mysql -p
 sleep 5
 (sudo rm -rf "$source_file" && sudo nano "$destination_file" )|| echo "You can still alter the credentials at $destination_file"
+handle_error() {
+    local error_message="$1"
+    echo "Error: $error_message" >&2
+}
 
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 "$destination_dir" &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
