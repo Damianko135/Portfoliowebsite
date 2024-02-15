@@ -39,7 +39,7 @@ You can set up the website on both Linux and Windows servers using the provided 
     bash Portfoliowebsite/Linux_Setup.sh || (sudo dpkg --configure -a && bash Portfoliowebsite/Linux_Setup.sh)
     ```
 
-3. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+3. After the setup script completes, open a web browser and visit the ip-address of your server to view the website.
 
 ### Windows Setup
 
@@ -56,7 +56,7 @@ You can set up the website on both Linux and Windows servers using the provided 
     .\Windows_Setup.ps1
     ```
 
-3. After the setup script completes, open a web browser and visit `http://localhost:3000` to view the website.
+3. After the setup script completes, open a web browser and visit the ip-address of your server to view the website.
 
 ### Uninstallation Scripts
 
