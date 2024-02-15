@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Function to handle errors
+handle_error() {
+    local error_message="$1"
+    echo "Error: $error_message" >&2
+    exit 1
+}
+
 # Change the variables accordingly
 destination_dir="/var/www/html/"
 Virtual_Host="/var/www/html/Index"
@@ -9,10 +16,7 @@ directory="Index"  # Change this to the directory you want to pull
 
 # Update system packages and upgrade kept back packages
 sudo apt update || handle_error "Failed to update system packages"
-
 sudo apt full-upgrade -y || handle_error "Failed to upgrade system packages" 
-
-# Upgrade held back packages
 sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages || handle_error "Failed to upgrade held back packages"
 
 # Install necessary packages: curl, Apache, firewall, MySQL, PHP, Git
@@ -29,8 +33,6 @@ sudo rm -rf /var/www/html/ || handle_error "Failed to remove existing HTML direc
 sudo mkdir -p /var/www/html || handle_error "Failed to create HTML directory"
 sudo chown -R "$(whoami)":"$(whoami)" /var/www/html || handle_error "Failed to set ownership for HTML directory"
 sudo chmod -R 755 /var/www/html || handle_error "Failed to set permissions for HTML directory"
-
-# Destination directory where you want to place the files
 
 # Check if the destination directory exists, if not, create it
 if [ ! -d "$destination_dir" ]; then
@@ -73,7 +75,7 @@ clear
 # Check if Connection.php exists in the specified path
 if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; then
     # Copy Connection.php to the specified path
-    if sudo cp "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
+    if sudo cp -n "$destination_dir/Connection.php" "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php"; then
         echo "Connection.php copied successfully."
         sudo nano "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" || handle_error "Failed to open Connection.php for editing"
     else
@@ -82,8 +84,6 @@ if [ ! -f "$destination_dir/Index/Pages/Project_1/Scripts/Connection.php" ]; the
 else
     echo "Connection.php already exists. Skipping copy."
 fi
-
-
 
 # Error message after the screen is cleared
 echo "Setup completed successfully"
@@ -98,13 +98,6 @@ echo "And use this to set a password: ALTER USER 'root'@'localhost' IDENTIFIED W
 sudo mysql -p
 sleep 5
 clear
-# Function to handle errors
-
-handle_error() {
-    local error_message="$1"
-    echo "Error: $error_message" >&2
-    exit 1
-}
 
 # Schedule permissions reset after 10 minutes.
 (sleep 600 && sudo chmod -R 755 /var/www/html/ &) && echo "You should be good to go :) " && echo "Permissions reset scheduled" || handle_error "Failed to schedule permissions reset"
