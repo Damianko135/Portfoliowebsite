@@ -1,0 +1,11 @@
+#    # Actually allows someone to pull this and run it
+#    Options +FollowSymLinks
+#    ## Flag for GoDaddy
+#    # Options +MultiViews
+#
+#    ## Turn on the rewrite engine
+#    RewriteEngine on
+#
+#    RewriteBase /Pages/Project_1/
+#
+#    RewriteRule ^Pages/Project_1/(.*)$ /$1 [L,NC,R=302]
