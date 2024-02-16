@@ -1,0 +1,30 @@
+version: '4.0'
+
+services:
+  website:
+    image: php:apache
+    ports:
+      - 80:80 # http
+      - 443:443 # https
+    volumes:
+      - "./Index:/var/www/html"
+  
+  DB:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=Portfolio
+      - MYSQL_USER=PHP_DOCKER
+      - MYSQL_PASSWORD=<YOUR_PASSWORD>
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1 ## Only for localhost
+    volumes:
+      - "./Database:/docker-entrypoint-initdb.d"
+
+  PHP_myadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=DB
+      - PMA_PORT=3306
+
+  
