@@ -6,8 +6,8 @@ Options +FollowSymLinks
 ## Turn on the rewrite engine
 RewriteEngine on
 
-## For project 1, try to remove the clutter
-RewriteRule ^Pages/Project_1/(.*)$ /$1 [L,NC,R=302]
+RewriteBase /
+
 ## Let the other htaccess do its thing
 
 ## If the requested URL without the .php extension exists as a file, internally rewrite the URL to append the .php extension
