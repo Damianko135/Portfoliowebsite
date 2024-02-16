@@ -6,7 +6,7 @@ Options +FollowSymLinks
 ## Turn on the rewrite engine
 RewriteEngine on
 
-RewriteBase /
+# RewriteBase /
 
 ## Let the other htaccess do its thing
 
