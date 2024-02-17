@@ -7,21 +7,21 @@ services:
       - "80:80" # HTTP
       - "443:443" # HTTPS
     volumes:
-      - "./Index:/var/www/html"
-  
+      - /etc/apache2:/etc/apache2 # Mount Apache config from host to container
+      - /path/to/website:/var/www/html # Mount website files
+
   DB:
     image: mysql:latest
-    ports:
+    ports:  
       - "3306:3306"
     environment:
       - MYSQL_DATABASE=Portfolio 
       - MYSQL_USER=PHP_DOCKER
-        ## 
       - MYSQL_PASSWORD=<YOUR_PASSWORD>
-        ## Great for localhost, bad for actual website
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
-      - "./Database:/docker-entrypoint-initdb.d"
+      - /path/to/mysql/config:/etc/mysql   # Mount MySQL config
+      - /path/to/mysql/data:/var/lib/mysql # Mount MySQL data
 
   PHP_myadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -30,30 +30,21 @@ services:
       - PMA_PORT=3306
 
   Minecraft:
-    image: itzg/minecraft-server:latest
-    environment:
-      - EULA=true
-    ports:
-      - "25565:25575"
-    volumes:
-      - data:/data
-    stdin_open: true
+    image: itzg/minecraft-server
     tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+    environment:
+      EULA: "TRUE"
     restart: unless-stopped
+    volumes:
+      - ./Minecraft:/data
 
   Uptime-Kuma:
     image: louislam/uptime-kuma:latest
     ports:
       - "3001:3001" 
     volumes:
-      - uptime-kuma:/app/Database
+      - ./uptime-kuma:/app/Database
     restart: always
-
-
-
-
-
-
-volumes:
-  data: {}
-  uptime-kuma: {}
