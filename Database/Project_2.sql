@@ -1,51 +1,7 @@
-DROP DATABASE IF EXISTS Portfolio;
+DROP DATABASE IF EXISTS Reserveringen;
 
-CREATE DATABASE IF NOT EXISTS Portfolio;
-
-USE Portfolio;
-
-CREATE TABLE links (
-    linkID      INT AUTO_INCREMENT PRIMARY KEY,
-    Link        VARCHAR(255) UNIQUE,
-    Username    VARCHAR(100),
-    userIP      VARCHAR(20),
-    Date        VARCHAR(29)
-);
-
-INSERT INTO links (Link, Username, userIP, Date) 
-VALUES ('https://youtu.be/xvFZjo5PgG0?si=mWhC94yeSyCt2Nst', 'Damian', 'localhost', NOW());
-
-CREATE TABLE persoonsgegevens (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    VoorNaam VARCHAR(255),
-    TussenVoegsel VARCHAR(20),
-    AchterNaam VARCHAR(255),
-    TelefoonNummer VARCHAR(20),
-    Email VARCHAR(255),
-    Aantal_Personen INT,
-    Verzoek VARCHAR(255)
-);
-
-CREATE TABLE adresgegevens (
-    AddressID INT AUTO_INCREMENT PRIMARY KEY,
-    UserID INT,
-    Postcode VARCHAR(255),
-    Huisnummer INT,
-    Toevoeging VARCHAR(255),
-    Straatnaam VARCHAR(255),
-    Woonplaats VARCHAR(255),
-    Land VARCHAR(255),
-    Kampeermiddel VARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES persoonsgegevens(UserID)
-);
-
-CREATE TABLE users (
-    UserID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(50) NOT NULL,
-    pwd VARCHAR(255) NOT NULL,
-    Email VARCHAR(100) NOT NULL UNIQUE
-);
-
+CREATE DATABASE IF NOT EXISTS Reserveringen;
+USE Reserveringen;
 
 CREATE TABLE IF NOT EXISTS persoonsgegevens (
     UserID INT AUTO_INCREMENT PRIMARY KEY,

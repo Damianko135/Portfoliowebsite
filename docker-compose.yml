@@ -7,7 +7,13 @@ services:
       - "8080:80"
     volumes:
       - ${HOME}/.Portfolio:/var/www/html
-    command: ["/bin/bash", "-c", "a2enmod rewrite && apache2-foreground"]
+    command: 
+      - "/bin/bash"
+      - "-c"
+      - |
+        a2enmod rewrite \
+        && docker-php-ext-install pdo_mysql \
+        && apache2-foreground
     restart: unless-stopped
 
   opleiding_blok_b:
@@ -33,19 +39,21 @@ services:
     ports:  
       - "3306:3306"
     environment:
-      - MYSQL_DATABASE=Portfolio 
-      - MYSQL_USER=PHP_DOCKER
-      - MYSQL_PASSWORD=<YOUR_PASSWORD>
+      - MYSQL_ROOT_PASSWORD=ROOT_PASSWORD
+      - MYSQL_USER=Portfolio
+      - MYSQL_PASSWORD=PORTFOLIO_WEBSITE
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
       - ${HOME}/.mysql:/var/lib/mysql # Mount MySQL data
     restart: unless-stopped
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    environment:
-      - MYSQL_HOST=db
-      - MYSQL_PORT=3306
+    image: phpmyadmin:5.2.1
+    ports:
+      - 8070:80
+    # Depends on db to start first
+    depends_on:
+      - db
     restart: unless-stopped
 
   minecraft:
