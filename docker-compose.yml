@@ -1,5 +1,7 @@
 version: '3.8'
 
+# Gemaakt in jaar 1 van open-ict
+
 services:
   portfolio:
     image: php:apache
@@ -48,7 +50,7 @@ services:
     restart: unless-stopped
 
   phpmyadmin:
-    image: phpmyadmin:5.2.1
+    image: phpmyadmin
     ports:
       - 8070:80
     # Depends on db to start first
