@@ -26,8 +26,14 @@ services:
       - "8081:80"
     volumes:
       - ${HOME}/.Block_B:/var/www/html/
-    command: ["/bin/bash", "-c", "a2enmod rewrite && apache2-foreground"]
-    restart: unless-stopped
+    command: 
+      - "/bin/bash"
+      - "-c"
+      - |
+        a2enmod rewrite \
+        && docker-php-ext-install pdo_mysql \
+        && apache2-foreground    
+    restart: unless-stopped  # Corrected indentation here
 
   opleiding_blok_c:
     image: php:apache
@@ -35,7 +41,13 @@ services:
       - "8082:80"
     volumes:
       - ${HOME}/.Block_C:/var/www/html/
-    command: ["/bin/bash", "-c", "a2enmod rewrite && apache2-foreground"]
+    command: 
+      - "/bin/bash"
+      - "-c"
+      - |
+        a2enmod rewrite \
+        && docker-php-ext-install pdo_mysql \
+        && apache2-foreground    
     restart: unless-stopped
 
   db:
