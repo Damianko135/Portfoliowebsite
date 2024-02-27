@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ${HOME}/.Portfolio:/var/www/html
+      - ../.Portfolio:/var/www/html
     command: 
       - "/bin/bash"
       - "-c"
@@ -25,7 +25,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - ${HOME}/.Block_B:/var/www/html/
+      - ../.Block_B:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -40,7 +40,7 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - ${HOME}/.Block_C:/var/www/html/
+      - ../.Block_C:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -50,18 +50,12 @@ services:
         && apache2-foreground    
     restart: unless-stopped
 
-  db:
+  mysql:
     image: mysql:latest
-    ports:  
-      - "3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=ROOT_PASSWORD
-      - MYSQL_USER=Portfolio
-      - MYSQL_PASSWORD=PORTFOLIO_WEBSITE
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
-    volumes:
-      - ${HOME}/.mysql:/var/lib/mysql # Mount MySQL data
+    command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   phpmyadmin:
     image: phpmyadmin
@@ -69,7 +63,7 @@ services:
       - 8070:80
     # Depends on db to start first
     depends_on:
-      - db
+      - mysql
     restart: unless-stopped
 
   minecraft:
@@ -82,14 +76,14 @@ services:
       EULA: "TRUE"
     restart: unless-stopped
     volumes:
-      - ${HOME}/.Minecraft:/data
+      - ../.Minecraft:/data
 
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     ports:
       - "3001:3001" 
     volumes:
-      - ${HOME}/.uptime-kuma:/app/Database
+      - ../.uptime-kuma:/app/Database
     restart: always
     depends_on:
       - portfolio
