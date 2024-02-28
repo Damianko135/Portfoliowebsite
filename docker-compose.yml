@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ../.Portfolio:/var/www/html
+      - portfolio:/var/www/html
     command: 
       - "/bin/bash"
       - "-c"
@@ -18,14 +18,14 @@ services:
         && apache2-foreground
     restart: unless-stopped
     depends_on:
-      - db
+      - mysql
 
   opleiding_blok_b:
     image: php:apache
     ports:
       - "8081:80"
     volumes:
-      - ../.Block_B:/var/www/html/
+      - opleiding_blok_b:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -33,14 +33,14 @@ services:
         a2enmod rewrite \
         && docker-php-ext-install pdo_mysql \
         && apache2-foreground    
-    restart: unless-stopped  # Corrected indentation here
+    restart: unless-stopped
 
   opleiding_blok_c:
     image: php:apache
     ports:
       - "8082:80"
     volumes:
-      - ../.Block_C:/var/www/html/
+      - opleiding_blok_c:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -56,12 +56,14 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin
     ports:
       - 8070:80
-    # Depends on db to start first
+    # Depends on mysql to start first
     depends_on:
       - mysql
     restart: unless-stopped
@@ -76,14 +78,31 @@ services:
       EULA: "TRUE"
     restart: unless-stopped
     volumes:
-      - ../.Minecraft:/data
+      - minecraft:/data
 
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     ports:
       - "3001:3001" 
     volumes:
-      - ../.uptime-kuma:/app/Database
+      - uptime_kuma:/app/Database
     restart: always
     depends_on:
       - portfolio
+
+  litecoin:
+    image: btcpayserver/litecoin
+    ports:
+      - "9332:9332"
+    restart: unless-stopped
+    volumes:
+      - litecoin:/root/.litecoin
+
+volumes:
+  portfolio:
+  opleiding_blok_b:
+  opleiding_blok_c:
+  mysql:
+  minecraft:
+  uptime_kuma:
+  litecoin:

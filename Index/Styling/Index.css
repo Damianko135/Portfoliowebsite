@@ -1,10 +1,10 @@
-html {
+/* Global Styles */
+:root {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     scroll-behavior: smooth;
     text-align: center;
     scroll-snap-type: y proximity;
-    user-select: none;
 }
 
 html::-webkit-scrollbar {
@@ -12,46 +12,43 @@ html::-webkit-scrollbar {
 }
 
 body {
-    background-color: transparent;
-    margin: 0%
-    ;
-    background-size: cover;
-    background-position: center;
+    margin: 0;
+    background-color: aqua; /* Set background color for the entire body */
 }
 
-.initial {
-    height: 100vh;
-}
-
-.intro {
-    background-color: darkred;
+/* Initial Section Styles */
+.portfolio-intro {
+    background-color: rgba(0, 0, 0, 0.5); /* Background color with transparency */
     padding-top: 10px;
     color: whitesmoke;
     background-image: url(../Images/Welcome-to-Eifel.jpg);
-    background-size: auto;
-    background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
 }
 
-.container {
+/* Container Styles */
+.portfolio-container {
+    position: absolute; /* Set position to fixed */
+    top: 0;
+    width: 100%; /* Cover entire viewport width */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: black;
     color: whitesmoke;
     text-align: start;
-    margin: 0px;
-    height: max-content;
-    width: 100%;
+    margin: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
 }
 
-.name, .nav {
+
+
+/* Name and Navigation Styles */
+.portfolio-name, .portfolio-nav {
     display: flex;
     align-items: center;
 }
 
-.name {
+.portfolio-name {
     width: fit-content;
     margin-left: 5px;
     transition: color 1s ease-in-out; 
@@ -59,41 +56,30 @@ body {
     user-select: none;
 }
 
-.name:hover {
+.portfolio-name:hover {
     color: red;
     animation: wiggle 4s ease-in-out infinite; 
     animation-delay: 0.5s;
-    
 }
 
-@keyframes wiggle {
-    50% {
-        transform: rotate(-20deg);
-    }
-    0%, 100% {
-        transform: rotate(0deg);
-    } 
-}
-
-.nav {
-    margin-right: 20%;
+/* Navigation Styles */
+.portfolio-nav {
     letter-spacing: 1px;
     align-items: center;
     justify-content: space-between;
     width: 30%;
-    gap: auto;
 }
 
 a {
     margin-right: 15px;
     color: inherit;
     text-decoration: none;
+    cursor: url(../Images/cursor.png), auto;
 }
 
 .nav-item {
+    height: 100%;
     font-size: 1rem;
-    line-height: 24px;
-    text-align: left;
     letter-spacing: normal;
     transition: color 1s;
 }
@@ -104,6 +90,17 @@ a {
     font-family: cursive;
     animation: ship 2.5s ease-in-out infinite;
     animation-delay: 0.5s;
+    background: scroll;
+}
+
+/* Animation Keyframes */
+@keyframes wiggle {
+    50% {
+        transform: rotate(-20deg);
+    }
+    0%, 100% {
+        transform: rotate(0deg);
+    } 
 }
 
 @keyframes ship {
@@ -118,7 +115,9 @@ a {
     }
 }
 
-.intro h1 {
+/* Heading Styles */
+.portfolio-intro h1 {
+    padding-top: 5px;
     font-size: 2rem;
     transition: font-size 1s ease-in-out, letter-spacing 0.5s ease-in-out;
     transition-delay: 0.2s;
@@ -128,66 +127,51 @@ a {
     line-height: 2rem; 
 }
 
-.intro h1:hover {
+.portfolio-intro h1:hover {
     letter-spacing: 0.2rem;
     font-size: 2.2rem;
     color: inherit, blueviolet;
 }
 
-
-.me {
+/* About Me Section Styles */
+.about-section {
     height: 100vh;
     padding-top: 5px;
-    background-color: aqua; /* Set the background color */
+    background-color: aqua;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.content {
     opacity: 0; /* Initially hide the content */
     transition: opacity 1s ease-out; /* Add transition for opacity */
+    position: relative; /* Set position to relative */
+    z-index: 1; /* Set z-index to ensure it's above the background */
 }
 
-.me.active .content {
-    animation: Slide 1s ease-in;
+.about-section.active {
     opacity: 1;
 }
 
-@keyframes Slide {
-    0% {
-        opacity: 0;
-        margin-left: -20%; /* Starting off-screen left */
-    }
-    100% {
-        opacity: 1;
-        margin-left: 0%; /* Moving to the center */
-    }
-}
-
-
-
-
-.contact {
+/* Contact Section Styles */
+.contact-section {
     background-color: whitesmoke;
     color: black;
     min-height: 15vh;
     max-height: 100vh;
-    margin-top: 0%;
+    margin-top: -1.5%;
 }
 
-.contact img {
+.contact-section img {
     max-height: 25px;
     max-width: 25px;
 }
 
-.socials {
+.contact-socials {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-inline: 40%;
 }
 
-.socials a {
+.contact-socials a {
     text-align: center;
     text-decoration: none;
     color: inherit;
@@ -195,20 +179,19 @@ a {
     width: auto; 
 }
 
-.socials a img {
+.contact-socials a img {
     display: block;
     max-width: 25px;
     max-height: 25px;
     transition: all 0.3s ease-in-out;
 }
 
-.socials a img:hover {
+.contact-socials a img:hover {
     transform: scale(1.3);
     filter: grayscale(100%);
 }
 
-.socials a p {
+.contact-socials a p {
     margin: 0;
     font-size: 0.5rem;
 }
-

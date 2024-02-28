@@ -3,87 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DK - Personal Portfolio</title>
+    <title>Damian Korver - Personal Portfolio</title>
     <link rel="stylesheet" href="Styling/Index.css">
+    
+</head>
+<body>
+    <header class="portfolio-intro">   
+        <div class="portfolio-container">
+            <div class="portfolio-name">
+                <p>Damian Korver</p>
+            </div>
+            <nav class="portfolio-nav">
+                <div class="nav-item">
+                    <a href="#">Home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="javascript:void(0);" onclick="smoothScrollTo('about')">About Me</a>
+                </div>
+                <div class="nav-item">
+                    <a href="pages/">Projects</a>
+                </div>
+                <div class="nav-item">
+                    <a href="javascript:void(0);" onclick="smoothScrollTo('contact')">Contact</a>
+                </div>
+            </nav>
+        </div>
+        <h1>Hello, I'm Damian Korver.</h1>
+    </header>
+
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h1>About Me:</h1>
+            <p>
+                I'm an IT student based in the Netherlands. <br>
+            </p>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <h1>Connect with Me:</h1> 
+        <div class="contact-socials">
+            <a target="_blank" href="https://github.com/Damianko135">
+                <img src="images/git-icon.jpg" alt="GitHub">
+                <p>GitHub</p>
+            </a>
+            <a target="_blank" href="mailto:damiankorver@gmail.com">
+                <img src="images/gmail-icon.jpg" alt="Mail">
+                <p>Email</p>
+            </a>
+            <a target="_blank" href="https://github.com/Damianko135">
+                <img src="images/git-icon.jpg" alt="GitHub">
+                <p>GitHub</p>
+            </a>
+        </div>
+    </section>
+
     <script>
-        function scrollToSection(sectionId) {
+        function smoothScrollTo(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
                 section.scrollIntoView({ behavior: 'smooth' });
             }
         }
         
-        function reveal() {
-            var reveals = document.querySelectorAll(".me");
-        
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-        
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                } else {
-                    reveals[i].classList.remove("active");
-                }
-            }   
+        function revealElementsOnScroll() {
+            var aboutSection = document.querySelector(".about-section");
+            var windowHeight = window.innerHeight;
+            var elementTop = aboutSection.getBoundingClientRect().top;
+            var elementVisible = 150;
+
+            if (elementTop < windowHeight - elementVisible) {
+                aboutSection.classList.add("active");
+            } else {
+                aboutSection.classList.remove("active");
+            }
         }
 
-        window.addEventListener("scroll", reveal);
+        window.addEventListener("scroll", revealElementsOnScroll);
     </script>
-</head>
-<body>
-    <div class="initial">   
-        <div class="container">
-            <div class="name">
-                <p>Damian Korver</p>
-            </div>
-            <div class="nav">
-                <div class="nav-item">
-                    <a href="">Home</a>
-                </div>
-                <div class="nav-item">
-                    <a href="javascript:void(0);" onclick="scrollToSection('AboutMe')">About me</a>
-                </div>
-                <div class="nav-item">
-                    <a href="Pages/">Projects</a>
-                </div>
-                <div class="nav-item">
-                    <a href="javascript:void(0);" onclick="scrollToSection('contact')">Contact</a>
-                </div>
-            </div>
-        </div>
-        <div class="intro">
-            <h1>Hello, I'm Damian Korver.</h1>
-        </div>
-    </div>
-
-    <div class="me" id="AboutMe">
-        <div class="content">
-            <h1>About me:</h1>
-            <p>
-                Im an ICT student in the Netherlands. <br>
-                
-            </p>
-        </div>
-    </div>
-
-    <div class="contact" id="contact">
-        <h1>Connect with me:</h1> 
-        <div class="socials">
-            <a target="_blank" href="https://github.com/Damianko135">
-                <img src="Images/Git-Icon.jpg" alt="GitHub">
-                <p>GitHub</p>
-            </a>
-            <a target="_blank" href="mailto:damiankorver@gmail.com">
-                <img src="Images/Gmail-Icon.jpg" alt="Mail">
-                <p>Email</p>
-            </a>
-            <a target="_blank" href="https://github.com/Damianko135">
-                <img src="Images/Git-Icon.jpg" alt="GitHub">
-                <p>GitHub</p>
-            </a>
-        </div>
-    </div>
 </body>
 </html>
