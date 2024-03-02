@@ -1,0 +1,29 @@
+@media screen and (max-width: 600px) {
+        .portfolio-intro {
+            grid-template: auto auto;
+        }
+        
+        .portfolio-name {
+            font-size: large;
+            position: sticky;
+        }
+
+
+        .portfolio-nav {    
+            display: grid;
+            grid-template-columns: auto auto;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: x-large;
+            height: 100svh;
+            
+
+
+        }
+        
+        section {
+            display: none;
+        }
+        
+        
+        
+    }
