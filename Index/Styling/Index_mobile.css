@@ -1,6 +1,7 @@
 /* Mobile styles */
 @media screen and (max-width: 768px) {
     /* Adjusting positioning of the mobile navigation */
+
     .nav {
         position: fixed;
         top: 0;
@@ -11,6 +12,7 @@
         padding-top: 60px;
         transition: 0.5s;
         display: none;
+        background-color: aqua; /* Set background color for the entire body */
     }
     
     /* Adjusting styling of navigation links */
@@ -53,10 +55,6 @@
         width: 100%; /* Adjust to cover full width */
         height: 100vh;
         color: black;
-        background-color: aqua; /* Set background color for the entire body */
     }
 
-    /* section {
-        display: none;
-    } */
 }
