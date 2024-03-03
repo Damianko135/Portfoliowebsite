@@ -1,29 +1,34 @@
-@media screen and (max-width: 600px) {
-        .portfolio-intro {
-            grid-template: auto auto;
-        }
-        
-        .portfolio-name {
-            font-size: large;
-            position: sticky;
-        }
+/* Mobile styles */
+@media screen and (max-width: 768px) {
 
-
-        .portfolio-nav {    
-            display: grid;
-            grid-template-columns: auto auto;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            font-size: x-large;
-            height: 100svh;
-            
-
-
-        }
-        
-        section {
-            display: none;
-        }
-        
-        
-        
+    .MobileNav {
+        position: absolute;
+        top: 5;
+        left: 90%;
     }
+
+    .intro {
+        grid-template: auto auto;
+    }
+    
+    .name {
+        font-size: large;
+        position: absolute;
+    }
+
+    .nav {    
+        display: none;
+
+    }
+    .nav:active {    
+        display: grid;
+        grid-template-columns: auto auto;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: x-large;
+        height: 100svh;
+    }
+    
+    section {
+        display: none;
+    }
+}

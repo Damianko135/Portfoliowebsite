@@ -4,11 +4,8 @@
     font-size: 1rem;
     scroll-behavior: smooth;
     text-align: center;
+    margin-inline: auto;
     scroll-snap-type: y proximity;
-}
-
-html {
-    scroll-behavior: smooth;
 }
 
 body {
@@ -16,8 +13,15 @@ body {
     background-color: aqua; /* Set background color for the entire body */
 }
 
-@media screen and (min-width: 600px) {
+a {
+    margin-right: 15px;
+    color: inherit;
+    text-decoration: none;
+    cursor: url(../Images/cursor.png), auto;
+}
 
+/* Desktop styles */
+@media screen and (min-width: 768px) {
     /* Hide mobile navigation */
     .MobileNav {
         display: none;
@@ -74,13 +78,6 @@ body {
         align-items: center;
         justify-content: space-between;
         width: 30%;
-    }
-
-    a {
-        margin-right: 15px;
-        color: inherit;
-        text-decoration: none;
-        cursor: url(../Images/cursor.png), auto;
     }
 
     .nav-item {
@@ -201,27 +198,5 @@ body {
         margin: 0;
         font-size: 0.5rem;
     }
-
 }
 
-@media screen and (max-width: 599px) {
-    /* Adjust styles for smaller screens */
-    .container {
-        flex-direction: column; /* Stack elements vertically */
-    }
-
-    .nav {
-        width: 100%; /* Take full width */
-        margin-top: 10px; /* Add margin at the top */
-    }
-
-    .socials {
-        margin-inline: 0; /* Reset margin */
-        flex-direction: column; /* Stack social icons vertically */
-        align-items: center; /* Center align social icons */
-    }
-
-    .socials a {
-        margin-bottom: 10px; /* Add spacing between social icons */
-    }
-}

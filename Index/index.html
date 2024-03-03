@@ -13,6 +13,7 @@
             <div class="name">
                 <p>Damian Korver</p>
             </div>
+            <img src="Images/cursor.png" alt="" class="MobileNav" id="MobileNavButton" onclick="toggleMobileNav()">
             <nav class="nav" id="NavBar">
                 <div class="nav-item">
                     <a href="#">Home</a>
@@ -55,6 +56,10 @@
     </section>
 
     <script>
+        function toggleMobileNav() {
+            document.getElementById('MobileNavButton').classList.toggle('active');
+        }
+    
         function smoothScrollTo(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
@@ -77,6 +82,7 @@
     
         window.addEventListener("scroll", revealElementsOnScroll);
     </script>
+    
     
 </body>
 </html>
