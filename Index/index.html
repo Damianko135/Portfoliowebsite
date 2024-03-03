@@ -57,6 +57,9 @@
 
     <script>
         function toggleMobileNav() {
+            // Toggle the 'active' class on the navigation container
+            document.getElementById('NavBar').classList.toggle('active');
+            // Toggle the 'active' class on the mobile navigation button
             document.getElementById('MobileNavButton').classList.toggle('active');
         }
     
@@ -82,7 +85,5 @@
     
         window.addEventListener("scroll", revealElementsOnScroll);
     </script>
-    
-    
 </body>
 </html>

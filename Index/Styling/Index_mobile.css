@@ -1,34 +1,39 @@
-/* Mobile styles */
-@media screen and (max-width: 768px) {
+        /* Mobile styles */
+        @media screen and (max-width: 768px) {
+            .MobileNav {
+                position: absolute;
+                top: 10%;
+                left: 90%;
+            }
+            .MobileNavP:active {
+                position: absolute;
+                top: 10%;
+                left: 20%;
+            }
 
-    .MobileNav {
-        position: absolute;
-        top: 5;
-        left: 90%;
-    }
+            .intro {
+                grid-template: auto auto;
+            }
 
-    .intro {
-        grid-template: auto auto;
-    }
-    
-    .name {
-        font-size: large;
-        position: absolute;
-    }
+            .name {
+                font-size: large;
+                position: absolute;
+            }
 
-    .nav {    
-        display: none;
+            .nav {    
+                display: none;
+            }
 
-    }
-    .nav:active {    
-        display: grid;
-        grid-template-columns: auto auto;
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        font-size: x-large;
-        height: 100svh;
-    }
-    
-    section {
-        display: none;
-    }
-}
+            /* Display the navigation when the 'active' class is present on the nav */
+            .nav.active {    
+                display: grid;
+                grid-template-columns: auto auto;
+                font-family: Georgia, 'Times New Roman', Times, serif;
+                font-size: x-large;
+                height: 100vh; /* Corrected height value */
+            }
+
+            section {
+                display: none;
+            }
+        }
