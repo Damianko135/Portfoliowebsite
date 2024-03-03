@@ -13,8 +13,9 @@
             <div class="name">
                 <p>Damian Korver</p>
             </div>
-            <img src="Images/cursor.png" alt="" class="MobileNav" id="MobileNavButton" onclick="toggleMobileNav()">
-            <nav class="nav" id="NavBar">
+            <button class="openbtn" onclick="openNav()">☰</button> <!-- Button to open the side navigation -->
+            <nav class="nav" id="mySidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a> <!-- Button to close the side navigation -->
                 <div class="nav-item">
                     <a href="#">Home</a>
                 </div>
@@ -56,13 +57,14 @@
     </section>
 
     <script>
-        function toggleMobileNav() {
-            // Toggle the 'active' class on the navigation container
-            document.getElementById('NavBar').classList.toggle('active');
-            // Toggle the 'active' class on the mobile navigation button
-            document.getElementById('MobileNavButton').classList.toggle('active');
+        function openNav() {
+            document.getElementById("mySidenav").classList.add("active");
         }
-    
+
+        function closeNav() {
+            document.getElementById("mySidenav").classList.remove("active");
+        }
+        
         function smoothScrollTo(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {

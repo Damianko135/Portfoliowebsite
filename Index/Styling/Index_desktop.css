@@ -23,7 +23,8 @@ a {
 /* Desktop styles */
 @media screen and (min-width: 768px) {
     /* Hide mobile navigation */
-    .MobileNav {
+    .closebtn,
+    .openbtn {
         display: none;
     }
 
@@ -199,4 +200,3 @@ a {
         font-size: 0.5rem;
     }
 }
-

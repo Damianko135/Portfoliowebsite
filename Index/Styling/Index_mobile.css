@@ -1,39 +1,62 @@
-        /* Mobile styles */
-        @media screen and (max-width: 768px) {
-            .MobileNav {
-                position: absolute;
-                top: 10%;
-                left: 90%;
-            }
-            .MobileNavP:active {
-                position: absolute;
-                top: 10%;
-                left: 20%;
-            }
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    /* Adjusting positioning of the mobile navigation */
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px; /* Adjust as needed */
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 60px;
+        transition: 0.5s;
+        display: none;
+    }
+    
+    /* Adjusting styling of navigation links */
+    .nav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 20px; /* Adjust as needed */
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+    
+    /* Hover effect for navigation links */
+    .nav a:hover {
+        color: #f1f1f1;
+    }
+    
+    .openbtn {
+        position: fixed;
+        top: 0;
+        right: 20px;
+        font-size: 32px;
+        margin-left: 50px;
+        background: transparent;
+        border-color: transparent;
+    }
 
-            .intro {
-                grid-template: auto auto;
-            }
+    /* Close button styling */
+    .closebtn {
+        position: fixed;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }    
+    
+    /* Active state for navigation */
+    .nav.active { 
+        display: flex;   
+        width: 100%; /* Adjust to cover full width */
+        height: 100vh;
+        color: black;
+        background-color: aqua; /* Set background color for the entire body */
+    }
 
-            .name {
-                font-size: large;
-                position: absolute;
-            }
-
-            .nav {    
-                display: none;
-            }
-
-            /* Display the navigation when the 'active' class is present on the nav */
-            .nav.active {    
-                display: grid;
-                grid-template-columns: auto auto;
-                font-family: Georgia, 'Times New Roman', Times, serif;
-                font-size: x-large;
-                height: 100vh; /* Corrected height value */
-            }
-
-            section {
-                display: none;
-            }
-        }
+    /* section {
+        display: none;
+    } */
+}
