@@ -13,6 +13,8 @@
         transition: 0.5s;
         display: none;
         background-color: aqua; /* Set background color for the entire body */
+        transition: all 2 sec;
+        
     }
     
     /* Adjusting styling of navigation links */

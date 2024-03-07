@@ -25,5 +25,7 @@ sudo systemctl enable docker
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main 
 
 cd Portfoliowebsite
-
+sudo cp -rf Index/. ~/.Portfolio
+sudo mv docker-compose.yaml ~/
+cd ~/
 docker-compose up -d

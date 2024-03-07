@@ -87,6 +87,7 @@ a {
         text-align: start;
         margin: 0;
         background: linear-gradient(to bottom, rgba(0, 0, 0, .5), rgba(0, 0, 0, 0));
+        margin-inline: auto;
     }
 
     /* Name and Navigation Styles */
@@ -161,10 +162,11 @@ a {
         font-size: 2rem;
         transition: font-size 1s ease-in-out, letter-spacing 0.5s ease-in-out;
         transition-delay: 0.2s;
-        width: fit-content;
+        width: max-content;
         margin-inline: auto;
         height: 2rem; 
         line-height: 2rem; 
+        padding-top: 20px;
     }
 
     .intro h1:hover {

@@ -1,21 +1,14 @@
-version: '3.8'
-
-# Gemaakt in jaar 1 van open-ict
-
 services:
   portfolio:
     image: php:apache
     ports:
       - "8080:80"
     volumes:
-      - portfolio:/var/www/html
+      - "./Portfolio:/var/www/html"
     command: 
       - "/bin/bash"
       - "-c"
-      - |
-        a2enmod rewrite \
-        && docker-php-ext-install pdo_mysql \
-        && apache2-foreground
+      - "a2enmod rewrite && docker-php-ext-install pdo_mysql && exec apache2-foreground"
     restart: unless-stopped
     depends_on:
       - mysql
@@ -25,14 +18,11 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - opleiding_blok_b:/var/www/html/
+      - "./.Block_B:/var/www/html"
     command: 
       - "/bin/bash"
       - "-c"
-      - |
-        a2enmod rewrite \
-        && docker-php-ext-install pdo_mysql \
-        && apache2-foreground    
+      - "a2enmod rewrite && docker-php-ext-install pdo_mysql && exec apache2-foreground"
     restart: unless-stopped
 
   opleiding_blok_c:
@@ -40,14 +30,11 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - opleiding_blok_c:/var/www/html/
+      - "./.Block_C:/var/www/html"
     command: 
       - "/bin/bash"
       - "-c"
-      - |
-        a2enmod rewrite \
-        && docker-php-ext-install pdo_mysql \
-        && apache2-foreground    
+      - "a2enmod rewrite && docker-php-ext-install pdo_mysql && exec apache2-foreground"
     restart: unless-stopped
 
   mysql:
@@ -63,7 +50,6 @@ services:
     image: phpmyadmin
     ports:
       - 8070:80
-    # Depends on mysql to start first
     depends_on:
       - mysql
     restart: unless-stopped
@@ -90,14 +76,6 @@ services:
     depends_on:
       - portfolio
 
-  litecoin:
-    image: btcpayserver/litecoin
-    ports:
-      - "9332:9332"
-    restart: unless-stopped
-    volumes:
-      - litecoin:/root/.litecoin
-
 volumes:
   portfolio:
   opleiding_blok_b:
@@ -105,4 +83,3 @@ volumes:
   mysql:
   minecraft:
   uptime_kuma:
-  litecoin:
