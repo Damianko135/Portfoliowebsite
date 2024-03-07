@@ -21,11 +21,26 @@ sudo apt autoclean
 # Enable Docker service
 sudo systemctl enable docker
 
-# Clone the repository
+# Clone the Portfoliowebsite repository
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main 
 
-cd Portfoliowebsite
-sudo cp -rf Index/. ~/.Portfolio
-sudo mv docker-compose.yaml ~/
-cd ~/
-docker-compose up -d
+# Move the docker-compose.yaml file to the home directory
+sudo mv Portfoliowebsite/docker-compose.yaml ~/
+
+# Start the Portfoliowebsite Docker containers in detached mode
+cd && docker-compose up -d
+
+# Copy the contents of the Index directory to ~/.Portfolio
+sudo cp -r ~/Portfoliowebsite/Index/* ~/.Portfolio/
+
+# Remove the Portfoliowebsite directory
+sudo rm -rf ~/Portfoliowebsite
+
+# Clone the BBB repository
+cd ~/.Block_B && sudo git clone -b Website --single-branch https://github.com/Gamelink2/BBB.git
+
+# Move the contents of the BBB/public directory to ~/.Block_B
+sudo mv ~/.Block_B/BBB/public/* ~/.Block_B/
+
+# Remove the BBB directory
+sudo rm -rf ~/.Block_B/BBB

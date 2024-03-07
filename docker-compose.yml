@@ -1,14 +1,21 @@
+# Gemaakt in jaar 1 van open-ict
+
+version: '3.8'
+
 services:
   portfolio:
     image: php:apache
     ports:
       - "8080:80"
     volumes:
-      - "./Portfolio:/var/www/html"
+      - ${HOME_DIR} /.Portfolio:/var/www/html
     command: 
       - "/bin/bash"
       - "-c"
-      - "a2enmod rewrite && docker-php-ext-install pdo_mysql && exec apache2-foreground"
+      - |
+        a2enmod rewrite \
+        && docker-php-ext-install pdo_mysql \
+        && apache2-foreground
     restart: unless-stopped
     depends_on:
       - mysql
@@ -18,11 +25,14 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - "./.Block_B:/var/www/html"
+      - ${HOME_DIR} /.Block_B:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
-      - "a2enmod rewrite && docker-php-ext-install pdo_mysql && exec apache2-foreground"
+      - |
+        a2enmod rewrite \
+        && docker-php-ext-install pdo_mysql \
+        && apache2-foreground    
     restart: unless-stopped
 
   opleiding_blok_c:
@@ -30,11 +40,14 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - "./.Block_C:/var/www/html"
+      - ${HOME_DIR} /.Block_C:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
-      - "a2enmod rewrite && docker-php-ext-install pdo_mysql && exec apache2-foreground"
+      - |
+        a2enmod rewrite \
+        && docker-php-ext-install pdo_mysql \
+        && apache2-foreground    
     restart: unless-stopped
 
   mysql:
@@ -44,7 +57,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
-      - mysql:/var/lib/mysql
+      - ${HOME_DIR} /.mysql_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin
@@ -64,22 +77,14 @@ services:
       EULA: "TRUE"
     restart: unless-stopped
     volumes:
-      - minecraft:/data
+      - ${HOME_DIR} /.Minecraft:/data
 
   uptime-kuma:
     image: louislam/uptime-kuma:latest
     ports:
       - "3001:3001" 
     volumes:
-      - uptime_kuma:/app/Database
+      - ${HOME_DIR} /.uptime-kuma:/app/Database
     restart: always
     depends_on:
       - portfolio
-
-volumes:
-  portfolio:
-  opleiding_blok_b:
-  opleiding_blok_c:
-  mysql:
-  minecraft:
-  uptime_kuma:
