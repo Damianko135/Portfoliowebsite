@@ -1,0 +1,149 @@
+@use "./Style.scss" as s;
+
+.mapBackground{
+    @include s.Background;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    display: flex;
+}
+
+.mapContainer{
+    height: 45rem;
+    display: flex;
+    padding-right: 0;
+    margin-right: 0;
+}
+area{
+    cursor: pointer;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+}
+.imageContainer{
+    @include s.Outline;
+    margin-left: 3rem;
+    aspect-ratio: 1.465;
+}
+
+.imageContainer img{
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    aspect-ratio: 1;
+}
+
+.infoContainer{
+    @include s.Outline;
+    @include s.TextBig;
+    padding: 10px 20px;
+    width: 25rem;
+    display: flex;
+    justify-content: center;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #d6edd4;
+    border: 1px solid #d6edd4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-radius: 25px;
+}
+.popupText{
+    @include s.TextMid;
+}
+#overlay{
+    background-color: rgba(0, 0, 0, 0.596);
+    z-index: 15;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    color: black;
+    @include s.OutlineSmall;
+    display: block;
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    box-shadow: none;
+}
+li::marker{
+    display: flex;
+    background: black ;
+    height: 4rem;
+    font-size: 4rem;
+    user-select: none;
+    cursor: pointer;
+}
+li{
+    background-color: rgba(75, 75, 75, 0.383);
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+    margin: 1.5rem;
+    display: flex;
+    list-style: none;
+    flex: 1;
+    align-items: center;
+    outline : 0.2rem inset rgb(0, 0, 0);
+    cursor: pointer;
+}
+li:hover{
+    background-color: rgba(147, 147, 147, 0.153);
+}
+li.selected{
+    background-color: rgba(255, 255, 255, 0.671);
+}
+$listItems : staanplaatsen toiletten zwembad speeltuin huisBert parkeerplekken;
+
+@each $item in $listItems {
+    .#{$item}::before {
+        content: '';
+        display: inline-block; /* Ensures the image is treated as a block element */
+        width: 1.75rem; /* Adjust the width as needed */
+        height: 1.75rem; /* Adjust the height as needed */
+        list-style: none;
+        background: url('../Images/#{$item}.svg') no-repeat center center; /* Replace 'image.png' with your image */
+        background-size: contain; /* Optional: Makes the image fit all the way in its container */
+        margin-right: 1rem;
+    }
+}
+
+@media (max-width: 992px ){
+    .mapContainer{
+    transform: scale(0.6) rotate(90deg);
+    }
+    .infoContainer{
+        height: 25rem;
+        transform: rotate(-90deg) scale(0.8) translateY(7.5rem) translateX(-15rem) ;
+        width: max-content;
+        margin-left: -25rem;
+        margin-right: -7.5rem;
+    }
+    .imageContainer{
+        margin-left: 0rem;
+    }
+    .info{
+        display: flex;
+        flex-wrap: wrap;
+        
+    }
+    li::marker{
+        font-size: 2rem;
+        user-select: none;
+        cursor: pointer;
+    }
+}

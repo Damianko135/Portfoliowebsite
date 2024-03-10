@@ -1,0 +1,62 @@
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    /* Adjusting positioning of the mobile navigation */
+
+    .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px; /* Adjust as needed */
+        background-color: #111;
+        overflow-x: hidden;
+        padding-top: 60px;
+        transition: 0.5s;
+        display: none;
+        background-color: aqua; /* Set background color for the entire body */
+        transition: all 2 sec;
+        
+    }
+    
+    /* Adjusting styling of navigation links */
+    .nav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 20px; /* Adjust as needed */
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+    
+    /* Hover effect for navigation links */
+    .nav a:hover {
+        color: #f1f1f1;
+    }
+    
+    .openbtn {
+        position: fixed;
+        top: 0;
+        right: 20px;
+        font-size: 32px;
+        margin-left: 50px;
+        background: transparent;
+        border-color: transparent;
+    }
+
+    /* Close button styling */
+    .closebtn {
+        position: fixed;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }    
+    
+    /* Active state for navigation */
+    .nav.active { 
+        display: flex;   
+        width: 100%; /* Adjust to cover full width */
+        height: 100vh;
+        color: black;
+    }
+
+}
