@@ -1,14 +1,33 @@
-# Gemaakt in jaar 1 van open-ict
+
+# Made in my first year of college.
 
 version: '3.8'
 
+networks:
+  frontend:
+    external: true
+  backend:
+    external: true
+
 services:
+  # CloudFlare:
+  #   container_name: CloudflareTunnel   
+  #   image: cloudflare/cloudflared:latest
+  #   restart: always
+  #   environment:
+  #     - TUNNEL_TOKEN=$TUNNEL_TOKEN
+  #   command: tunnel run
+  #   networks:
+  #     - frontend
+  #     - backend
+
   portfolio:
+    container_name: Portfolio
     image: php:apache
     ports:
       - "8080:80"
     volumes:
-      - ${HOME_DIR} /.Portfolio:/var/www/html
+      - ${HOME_DIR}/.Portfolio:/var/www/html
     command: 
       - "/bin/bash"
       - "-c"
@@ -21,11 +40,12 @@ services:
       - mysql
 
   opleiding_blok_b:
+    container_name: Blok_B
     image: php:apache
     ports:
       - "8081:80"
     volumes:
-      - ${HOME_DIR} /.Block_B:/var/www/html/
+      - ${HOME_DIR}/.Block_B:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -36,11 +56,12 @@ services:
     restart: unless-stopped
 
   opleiding_blok_c:
+    container_name: Blok_C
     image: php:apache
     ports:
       - "8082:80"
     volumes:
-      - ${HOME_DIR} /.Block_C:/var/www/html/
+      - ${HOME_DIR}/.Block_C:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -51,16 +72,18 @@ services:
     restart: unless-stopped
 
   mysql:
+    container_name: Database
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-     MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     volumes:
-      - ${HOME_DIR} /.mysql_data:/var/lib/mysql
+      - ${HOME_DIR}/.mysql_data:/var/lib/mysql
 
   phpmyadmin:
+    container_name: PHPMyAdmin
     image: phpmyadmin
     ports:
       - 8070:80
@@ -69,6 +92,7 @@ services:
     restart: unless-stopped
 
   minecraft:
+    container_name: Minecraft
     image: itzg/minecraft-server
     tty: true
     stdin_open: true
@@ -78,14 +102,15 @@ services:
       EULA: "TRUE"
     restart: unless-stopped
     volumes:
-      - ${HOME_DIR} /.Minecraft:/data
+      - ${HOME_DIR}/.Minecraft:/data
 
   uptime-kuma:
+    container_name: kuma
     image: louislam/uptime-kuma:latest
     ports:
       - "3001:3001" 
     volumes:
-      - ${HOME_DIR} /.uptime-kuma:/app/Database
+      - ${HOME_DIR}/.uptime-kuma:/app/Database
     restart: always
     depends_on:
       - portfolio

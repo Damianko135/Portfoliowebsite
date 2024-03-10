@@ -28,7 +28,7 @@ git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b
 sudo mv Portfoliowebsite/docker-compose.yaml ~/
 
 # Start the Portfoliowebsite Docker containers in detached mode
-cd && docker-compose up -d
+cd ~/ && docker-compose up -d
 
 # Copy the contents of the Index directory to ~/.Portfolio
 sudo cp -r ~/Portfoliowebsite/Index/* ~/.Portfolio/
