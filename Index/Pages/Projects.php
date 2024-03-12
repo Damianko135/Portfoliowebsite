@@ -25,7 +25,7 @@
                 </div>
             </a>
             <a href="Project_2/">
-                <img src="../Images/Project_2.jpg" alt="Project_2">
+                <img src="groeneweide.dkorver.com" alt="Project_2">
                 <p>Project 2</p>
                 <div class="hidden">
                     <br>
