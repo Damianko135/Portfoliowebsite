@@ -62,10 +62,15 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      MYSQL_ROOT_HOST: '%'
     volumes:
       - ./.mysql_data:/var/lib/mysql
+      - ./sql-files/Project_1.sql:/docker-entrypoint-initdb.d/Project_1.sql:ro
+      - ./sql-files/Project_2.sql:/docker-entrypoint-initdb.d/Project_2.sql:ro
+
+
+
 
   phpmyadmin:
     container_name: PHPMyAdmin
@@ -100,4 +105,3 @@ services:
     restart: always
     depends_on:
       - portfolio
-
