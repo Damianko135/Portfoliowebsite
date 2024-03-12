@@ -9,7 +9,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ../.Portfolio:/var/www/html
+      - ./.Portfolio:/var/www/html
     command: 
       - "/bin/bash"
       - "-c"
@@ -28,7 +28,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - ../.Block_B:/var/www/html/
+      - ./.Block_B:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -45,7 +45,7 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - ../.Block_C:/var/www/html/
+      - ./.Block_C:/var/www/html/
     command: 
       - "/bin/bash"
       - "-c"
@@ -65,7 +65,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     volumes:
-      - ../.mysql_data:/var/lib/mysql
+      - ./.mysql_data:/var/lib/mysql
 
   phpmyadmin:
     container_name: PHPMyAdmin
@@ -88,7 +88,7 @@ services:
       EULA: "TRUE"
     restart: unless-stopped
     volumes:
-      - ../.Minecraft:/data
+      - ./.Minecraft:/data
 
   uptime-kuma:
     container_name: kuma
@@ -96,7 +96,7 @@ services:
     ports:
       - "3001:3001" 
     volumes:
-      - ../.uptime-kuma:/app/Database
+      - ./.uptime-kuma:/app/Database
     restart: always
     depends_on:
       - portfolio
