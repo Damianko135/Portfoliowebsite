@@ -37,7 +37,7 @@ sudo cp -r ~/Portfoliowebsite/Index/* ~/.Portfolio/
 sudo rm -rf ~/Portfoliowebsite
 
 # Clone the BBB repository
-cd ~/.Block_B && sudo git clone -b Website --single-branch https://github.com/Gamelink2/BBB.git
+cd ~/.Block_B && sudo git clone https://github.com/Damianko135/BBB.git
 
 # Move the contents of the BBB/public directory to ~/.Block_B
 sudo mv ~/.Block_B/BBB/public/* ~/.Block_B/
