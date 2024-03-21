@@ -54,7 +54,7 @@ docker run -d \
   -p 5001:5001 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v ./data:/app/data \
-  -v "$(pwd)":/home/orangepi \
+  -v "$(pwd)":"$(pwd)" \
   -e DOCKGE_STACKS_DIR="$(pwd)" \
   louislam/dockge:1
 
