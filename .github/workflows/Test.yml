@@ -1,0 +1,39 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        
+    - name: Install PHP dependencies
+      run: composer install
+      
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        
+    - name: Install JavaScript dependencies
+      run: npm install
+      
+    - name: Run JavaScript tests
+      run: npm test
+      
+    - name: Install HTMLHint
+      run: npm install htmlhint -g
+      
+    - name: Run HTML linting
+      run: htmlhint .
