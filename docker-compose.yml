@@ -97,5 +97,19 @@ services:
     depends_on:
       - portfolio
 
+  dockge:
+    container_name: dockge
+    image: louislam/dockge:1
+    restart: unless-stopped
+    ports:
+      - 5001:5001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
+      - /home/orangepi:/home/orangepi
+    environment:
+      - DOCKGE_STACKS_DIR=/home/orangepi
+      
+
 volumes:
   mysql_data_volume:

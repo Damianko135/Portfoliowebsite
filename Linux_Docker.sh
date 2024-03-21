@@ -46,5 +46,24 @@ sudo mv ~/.Block_B/BBB/public/* ~/.Block_B/
 # Remove the BBB directory
 sudo rm -rf ~/.Block_B/BBB
 
+# Run the dockge container with restart policy
+# Very handy for when you're used to docker commands and want to swith to compose
+docker run -d \
+  --name dockge \
+  --restart always \
+  -p 5001:5001 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v ./data:/app/data \
+  -v "$(pwd)":/home/orangepi \
+  -e DOCKGE_STACKS_DIR="$(pwd)" \
+  louislam/dockge:1
 
-docker run -d -p 9000:9000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+# Run the portainer container with restart policy
+# Very nice to have this for seeing the status of all containers.
+docker run -d \
+  -p 9000:9000 \
+  --name portainer \
+  --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v portainer_data:/data \
+  portainer/portainer-ce:latest
