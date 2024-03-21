@@ -1,75 +1,97 @@
-name: Portfolio Application Tests
+name: Full Stack Application Tests
 
 on:
   push:
     branches:
+      - main
       - master
+  pull_request:
+    branches: 
       - main
 
+permissions:
+  contents: read
+
 jobs:
-  build_and_test:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      # Checkout the repository
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-      # Set up Node.js environment
-      - uses: actions/setup-node@v2
-        with:
-          node-version:  # Use the latest version of Node.js
+    - name: Validate composer.json and composer.lock
+      run: composer validate --strict
 
-      # Install Node.js dependencies
-      - run: npm install
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
 
-      # Run frontend tests
-      - run: npm test
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
 
-      # Build frontend assets
-      - run: npm run build
+    - name: Cache Node.js modules
+      id: npm-cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
-      # Set up PHP environment
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version:  # Use the latest version of PHP
+    - name: Install Node.js dependencies
+      run: npm install
 
-      # Install PHP dependencies
-      - run: composer install
+    # Add steps for frontend tests (e.g., Jest, Mocha, etc.)
+    
+    - name: Run frontend tests
+      run: npm test
 
-      # Run backend tests
-      - run: composer test
+    # Add steps for building frontend assets (e.g., webpack, gulp, etc.)
+    
+    - name: Build frontend assets
+      run: npm run build
 
-      # Run integration tests (assuming PHPUnit for PHP and Jest for JavaScript)
-      - run: ./vendor/bin/phpunit tests/Integration
-      - run: jest --config jest.integration.config.js
+    # Add steps for deploying frontend assets
+    
+    - name: Deploy frontend assets
+      run: npm run deploy
 
-      # Set up test database (assuming MySQL)
-      - name: Set up test database
-        run: |
-          mysql -e 'CREATE DATABASE IF NOT EXISTS test_database;'
-          mysql -e 'USE test_database; CREATE TABLE IF NOT EXISTS example_table (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));'
-      
-      # Run database tests
-      - run: ./vendor/bin/phpunit tests/Database
-      
-      # Security testing (assuming you have security scanners)
-      - name: Run security scans
-        run: |
-          # Example: Run OWASP Dependency-Check for vulnerabilities in dependencies
-          # Replace with appropriate security scanning tools
-          # Example command: dependency-check --scan /path/to/project --format ALL --out /path/to/output
-          echo "Run security scans here..."
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-      # Performance testing (assuming Apache JMeter)
-      - name: Run performance tests
-        run: |
-          # Example: Run Apache JMeter for load testing
-          # Replace with appropriate performance testing tools and configurations
-          # Example command: jmeter -n -t /path/to/testplan.jmx -l /path/to/results.jtl
-          echo "Run performance tests here..."
+    - name: Run backend tests
+      run: composer run-script test
 
-      # Build with PHP (if applicable)
-      - run: composer build
+    # Add steps for database setup and tests (if applicable)
 
-      # Deploy with PHP (if applicable)
-      - run: composer deploy
+    - name: Set up test database
+      run: |
+        mysql -e 'CREATE DATABASE IF NOT EXISTS test_database;'
+        mysql -e 'USE test_database; CREATE TABLE IF NOT EXISTS example_table (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));'
+
+    - name: Run database tests
+      run: ./vendor/bin/phpunit tests/Database
+
+    # Add steps for security testing (e.g., OWASP Dependency-Check)
+
+    - name: Run security scans
+      run: echo "Run security scans here..."
+
+    # Add steps for performance testing (e.g., Apache JMeter)
+
+    - name: Run performance tests
+      run: echo "Run performance tests here..."
+
+    # Add steps for building and deploying with PHP (if applicable)
+
+    - name: Build with PHP
+      run: composer run-script build
+
+    - name: Deploy with PHP
+      run: composer run-script deploy
