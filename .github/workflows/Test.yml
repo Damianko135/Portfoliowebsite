@@ -1,1 +1,14 @@
+name: Portfolio Application Tests
 
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check-out
+        uses: actions/checkout@v2
