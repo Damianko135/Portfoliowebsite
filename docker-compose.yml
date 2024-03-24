@@ -1,10 +1,6 @@
 version: '3.8'
 
-networks:
-  frontend: 
-    external: true
-  backend:
-    external: true
+
 
 services:
   cloudflare-tunnel:
@@ -14,11 +10,6 @@ services:
     environment:
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
     command: tunnel --no-autoupdate run
-    networks:
-      - frontend
-      - backend
-    ports:
-      - "1234:1234"  # Example port mapping for external access
 
   portfolio:
     container_name: Portfolio
@@ -37,9 +28,7 @@ services:
     restart: unless-stopped
     depends_on:
       - mysql
-    networks:
-      - frontend
-      - backend
+
 
   opleiding_blok_b:
     container_name: Blok_B
@@ -56,9 +45,7 @@ services:
         && docker-php-ext-install pdo_mysql \
         && apache2-foreground    
     restart: unless-stopped
-    networks:
-      - frontend
-      - backend
+
 
   opleiding_blok_c:
     container_name: Blok_C
@@ -75,9 +62,7 @@ services:
         && docker-php-ext-install pdo_mysql \
         && apache2-foreground    
     restart: unless-stopped
-    networks:
-      - frontend
-      - backend
+
 
   mysql:
     container_name: Database
@@ -91,8 +76,6 @@ services:
       - ./sql-files:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-    networks:
-      - backend
 
   phpmyadmin:
     container_name: PHPMyAdmin
@@ -102,9 +85,7 @@ services:
     depends_on:
       - mysql
     restart: unless-stopped
-    networks:
-      - frontend
-      - backend
+
 
   minecraft:
     container_name: Minecraft
@@ -129,9 +110,7 @@ services:
     restart: always
     depends_on:
       - portfolio
-    networks:
-      - frontend
-      - backend
+
 
   dockge:
     container_name: dockge
@@ -145,7 +124,5 @@ services:
       - /home/orangepi:/home/orangepi
     environment:
       - DOCKGE_STACKS_DIR=/home/orangepi
-    networks:
-      - frontend
-      - backend
+
     
