@@ -27,6 +27,10 @@ git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b
 # Move the docker-compose.yaml file to the home directory
 sudo mv Portfoliowebsite/docker-compose.yaml ~/
 
+docker network create frontend
+docker network create backend
+
+
 # Start the Portfoliowebsite Docker containers in detached mode
 cd ~/ && docker-compose up -d
 
@@ -54,4 +58,7 @@ docker run -d \
   --restart always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v portainer_data:/data \
+  --network frontend \
+  --network backend \
   portainer/portainer-ce:latest
+
