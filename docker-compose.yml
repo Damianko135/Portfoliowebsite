@@ -97,6 +97,7 @@ services:
     depends_on:
       - portfolio
 
+## Turn docker run commands into compose commands
   dockge:
     container_name: dockge
     image: louislam/dockge:1
