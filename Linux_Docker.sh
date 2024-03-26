@@ -27,6 +27,11 @@ git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b
 # Move the docker-compose.yaml file to the home directory
 sudo mv Portfoliowebsite/docker-compose.yaml ~/
 
+touch .env
+echo "## You dont need an actual token, but do remember, is will fail to start.
+TUNNEL_TOKEN= " >> ./.env
+echo "MYSQL_ALLOW_AMPTY_PASSWORD=" >> ./.env
+
 # Start the Portfoliowebsite Docker containers in detached mode
 cd ~/ && docker-compose up -d
 
@@ -45,6 +50,12 @@ sudo mv ~/.Block_B/BBB/public/* ~/.Block_B/
 
 # Remove the BBB directory
 sudo rm -rf ~/.Block_B/BBB
+
+docker run -d --name CloudFlare-Tunnel \
+  cloudflare/cloudflared:latest \
+  tunnel --no-autoupdate \
+  run --token="${TUNNEL_TOKEN}" || echo "You don't have a Cloudflare tunnel token set. Please set the tunnel token if you wish to continue using a Cloudflare tunnel."
+
 
 # Run the portainer container with restart policy
 # Very nice to have this for seeing the status of all containers.

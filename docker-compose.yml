@@ -1,15 +1,13 @@
 version: '3.8'
 
-
-
 services:
-  cloudflare-tunnel:
-    container_name: Tunnel-DO-NOT-DELETE
+  cloudflared:
     image: cloudflare/cloudflared:latest
-    restart: always
-    environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
-    command: tunnel --no-autoupdate run
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+    networks:
+      - tunnel
+    restart: unless-stopped
 
   portfolio:
     container_name: Portfolio
@@ -18,7 +16,7 @@ services:
       - "8080:80"  # Example port mapping for external access
     volumes:
       - ./.Portfolio:/var/www/html
-    command: 
+    command:
       - "/bin/bash"
       - "-c"
       - |
@@ -28,7 +26,8 @@ services:
     restart: unless-stopped
     depends_on:
       - mysql
-
+    networks:
+      - tunnel
 
   opleiding_blok_b:
     container_name: Blok_B
@@ -37,15 +36,16 @@ services:
       - "8081:80"  # Example port mapping for external access
     volumes:
       - ./.Block_B:/var/www/html/
-    command: 
+    command:
       - "/bin/bash"
       - "-c"
       - |
         a2enmod rewrite \
         && docker-php-ext-install pdo_mysql \
-        && apache2-foreground    
+        && apache2-foreground
     restart: unless-stopped
-
+    networks:
+      - tunnel
 
   opleiding_blok_c:
     container_name: Blok_C
@@ -54,15 +54,16 @@ services:
       - "8082:80"  # Example port mapping for external access
     volumes:
       - ./.Block_C:/var/www/html/
-    command: 
+    command:
       - "/bin/bash"
       - "-c"
       - |
         a2enmod rewrite \
         && docker-php-ext-install pdo_mysql \
-        && apache2-foreground    
+        && apache2-foreground
     restart: unless-stopped
-
+    networks:
+      - tunnel
 
   mysql:
     container_name: Database
@@ -76,6 +77,8 @@ services:
       - ./sql-files:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
+    networks:
+      - tunnel
 
   phpmyadmin:
     container_name: PHPMyAdmin
@@ -85,7 +88,8 @@ services:
     depends_on:
       - mysql
     restart: unless-stopped
-
+    networks:
+      - tunnel
 
   minecraft:
     container_name: Minecraft
@@ -99,6 +103,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./.Minecraft:/data
+    networks:
+      - tunnel
 
   uptime-kuma:
     container_name: kuma
@@ -110,7 +116,8 @@ services:
     restart: always
     depends_on:
       - portfolio
-
+    networks:
+      - tunnel
 
   dockge:
     container_name: dockge
@@ -124,5 +131,10 @@ services:
       - /home/orangepi:/home/orangepi
     environment:
       - DOCKGE_STACKS_DIR=/home/orangepi
+    networks:
+      - tunnel
 
-    
+networks:
+  tunnel:
+    external:
+     - true
