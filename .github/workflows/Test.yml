@@ -1,58 +1,43 @@
-name: Example Workflow
+name: ci
 
 on:
   push:
     branches:
-      - main
+      - "main"
+      - "master"
+
+env:
+  TEST_TAG: user/app:test
+  LATEST_TAG: user/app:latest
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Switch to main branch
-        run: git checkout -b main
-
-      - name: Set up branch to track origin/main
-        run: git branch --set-upstream-to=origin/main main
-
-      - name: Get latest commit hash
-        run: |
-          latest_commit=$(git log -1 --format='%H')
-          echo "Latest commit hash: $latest_commit"
-
-      - name: Run docker/setup-qemu-action
-        uses: docker/setup-qemu-action@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
-          platforms: all
-          image: ubuntu:20.04
-
-      - name: Pull Docker image
-        run: docker pull ubuntu:20.04
-
-      - name: Inspect Docker image
-        run: docker inspect ubuntu:20.04
-
-      - name: Install QEMU static binaries
-        run: docker run --rm --privileged -e INSTALL=all ubuntu:20.04
-
-      - name: Output git version
-        run: git version
-
-      - name: Temporarily override HOME
-        run: export HOME='/home/runner/work/_temp/9707b5b5-26e3-4bcb-9578-3a124443c2ee'
-
-      - name: Add repository directory to temporary git global config
-        run: git config --global --add safe.directory /home/runner/work/Portfoliowebsite/Portfoliowebsite
-
-      - name: Unset core.sshCommand locally
-        run: git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-
-      - name: Unset http.https://github.com/.extraheader locally
-        run: git config --local --unset-all http.https://github.com/.extraheader
-
-      - name: Unset http.https://github.com/.extraheader in submodules recursively
-        run: git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          tags: ${{ env.TEST_TAG }}
+      - name: Test
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ env.LATEST_TAG }}
