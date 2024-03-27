@@ -1,39 +1,29 @@
-name: Test
+name: Docker Build and Push
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
       
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.0'
-        
-    - name: Install PHP dependencies
-      run: composer install
+      - name: Install Docker Compose
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+          image: ubuntu:20.04
       
-    - name: Run PHPUnit tests
-      run: vendor/bin/phpunit
+      - name: Build Docker images
+        run: |
+          docker-compose build
       
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-        
-    - name: Install JavaScript dependencies
-      run: npm install
-      
-    - name: Run JavaScript tests
-      run: npm test
-      
-    - name: Install HTMLHint
-      run: npm install htmlhint -g
-      
-    - name: Run HTML linting
-      run: htmlhint .
+      - name: Push Docker images
+        run: |
+          docker-compose push

@@ -3,3 +3,5 @@
 Index/Pages/Project_3/GitHub/cscGroep
 temp..json
 *.secret
+*.sh
+*.py
