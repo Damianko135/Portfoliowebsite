@@ -1,4 +1,7 @@
-
+## Seeing as it Untracked the Connection.php, you would have to add that one yourself
+# Now you only have to update it with the right credentials, be aware, also after you uninstall it.
+Index/Pages/Project_3/GitHub/cscGroep
+temp..json
+*.secret
 *.sh
 *.py
-*.secret
