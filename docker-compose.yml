@@ -13,7 +13,7 @@ services:
     container_name: Portfolio
     image: php:apache
     ports:
-      - "8080:80"  # Example port mapping for external access
+      - "8080:80"  
     volumes:
       - ./.Portfolio:/var/www/html
     command:
@@ -33,7 +33,7 @@ services:
     container_name: Blok_B
     image: php:apache
     ports:
-      - "8081:80"  # Example port mapping for external access
+      - "8081:80"  
     volumes:
       - ./.Block_B:/var/www/html/
     command:
@@ -51,7 +51,7 @@ services:
     container_name: Blok_C
     image: php:apache
     ports:
-      - "8082:80"  # Example port mapping for external access
+      - "8082:80"  
     volumes:
       - ./.Block_C:/var/www/html/
     command:
@@ -84,7 +84,7 @@ services:
     container_name: PHPMyAdmin
     image: phpmyadmin
     ports:
-      - 8070:80  # Example port mapping for external access
+      - 8070:80  
     depends_on:
       - mysql
     restart: unless-stopped
@@ -97,7 +97,7 @@ services:
     tty: true
     stdin_open: true
     ports:
-      - "25565:25565"  # Example port mapping for external access
+      - "25565:25565"  
     environment:
       EULA: "TRUE"
     restart: unless-stopped
@@ -110,7 +110,7 @@ services:
     container_name: kuma
     image: louislam/uptime-kuma:latest
     ports:
-      - "3001:3001"   # Example port mapping for external access
+      - "3001:3001"   
     volumes:
       - ./.uptime-kuma:/app/Database
     restart: always
@@ -124,7 +124,7 @@ services:
     image: louislam/dockge:1
     restart: unless-stopped
     ports:
-      - 5001:5001   # Example port mapping for external access
+      - 5001:5001   
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/app/data
@@ -136,5 +136,4 @@ services:
 
 networks:
   tunnel:
-    external:
-     - true
+    external: true
