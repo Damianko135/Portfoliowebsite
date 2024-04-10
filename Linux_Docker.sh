@@ -24,8 +24,8 @@ sudo systemctl enable docker
 # Clone the Portfoliowebsite repository
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main 
 
-# Move the docker-compose.yaml file to the home directory
-sudo mv Portfoliowebsite/docker-compose.yaml ~/
+# Move the docker-compose.yml file to the home directory
+sudo mv Portfoliowebsite/docker-compose.yml ~/
 
 touch .env
 echo "## You dont need an actual token, but do remember, is will fail to start.
