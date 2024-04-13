@@ -36,8 +36,8 @@ echo "MYSQL_ALLOW_AMPTY_PASSWORD=" >> ./.env
 cd ~/ && docker-compose up -d
 
 # Copy the contents of the Index directory to ~/.Portfolio
-sudo cp -r ~/Portfoliowebsite/Index/* ~/.Portfolio/
-sudo cp -r ~/Portfoliowebsite/Database/* ~/.sql-files/
+sudo cp -rf ~/Portfoliowebsite/Index/* ~/.Portfolio/
+sudo cp -rf ~/Portfoliowebsite/Database/* ~/.sql-files/
 
 # Remove the Portfoliowebsite directory
 sudo rm -rf ~/Portfoliowebsite

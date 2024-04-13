@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared
-    command: tunnel --no-autoupdate run
+  cloudflared-tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
     environment:
       - TUNNEL_TOKEN=$TUNNEL_TOKEN
-    restart: unless-stopped
-
+      
   portfolio:
     container_name: Portfolio
     image: php:apache
@@ -16,13 +16,9 @@ services:
       - "8080:80"  
     volumes:
       - ./.Portfolio:/var/www/html
-    command:
-      - "/bin/bash"
-      - "-c"
-      - |
-        a2enmod rewrite \
-        && docker-php-ext-install pdo_mysql \
-        && apache2-foreground
+      - ./apache_logs/portfolio:/var/log/apache2  # Mount log directory
+    command: >
+      /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
     depends_on:
       - mysql
@@ -34,13 +30,9 @@ services:
       - "8081:80"  
     volumes:
       - ./.Block_B:/var/www/html/
-    command:
-      - "/bin/bash"
-      - "-c"
-      - |
-        a2enmod rewrite \
-        && docker-php-ext-install pdo_mysql \
-        && apache2-foreground
+      - ./apache_logs/opleiding_blok_b:/var/log/apache2  # Mount log directory
+    command: >
+      /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
     
   opleiding_blok_c:
@@ -50,13 +42,9 @@ services:
       - "8082:80"  
     volumes:
       - ./.Block_C:/var/www/html/
-    command:
-      - "/bin/bash"
-      - "-c"
-      - |
-        a2enmod rewrite \
-        && docker-php-ext-install pdo_mysql \
-        && apache2-foreground
+      - ./apache_logs/opleiding_blok_c:/var/log/apache2  # Mount log directory
+    command: >
+      /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
     
   mysql:
@@ -76,7 +64,7 @@ services:
     container_name: PHPMyAdmin
     image: phpmyadmin
     ports:
-      - 8070:80  
+      - "8070:80"  
     depends_on:
       - mysql
     restart: unless-stopped
