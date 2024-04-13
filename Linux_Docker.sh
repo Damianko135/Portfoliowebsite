@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+## To make sure the commands will be executed correctly.
+cd ~/
 # Update package lists
 sudo apt update
 
