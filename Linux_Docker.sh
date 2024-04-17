@@ -41,7 +41,7 @@ cd ~/ && docker-compose up -d
 
 # Copy the contents of the Index directory to ~/.Portfolio
 sudo cp -rf ~/Portfoliowebsite/Index/* ~/.Portfolio/
-sudo cp -rf ~/Portfoliowebsite/Database/* ~/.sql-files/
+sudo cp -rf ~/Portfoliowebsite/Database/* ~/sql-files/
 
 # Remove the Portfoliowebsite directory
 sudo rm -rf ~/Portfoliowebsite
@@ -70,3 +70,22 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v portainer_data:/data \
   portainer/portainer-ce:latest
+
+echo "nameserver 8.8.8.8
+nameserver 1.1.1.1" >> /etc/resolv.conf
+
+
+
+sudo bash -c 'cat << EOF >> /etc/NetworkManager/NetworkManager.conf
+[main]
+dns=none
+
+[ipv4]
+dns-search=
+method=auto
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+method=auto
+EOF'
