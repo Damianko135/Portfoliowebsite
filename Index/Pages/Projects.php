@@ -24,8 +24,8 @@
                    </h2>
                 </div>
             </a>
-            <a href="Project_2/">
-                <img src="groeneweide.dkorver.com" alt="Project_2">
+            <a href="https://groeneweide.dkorver.com/">
+                <img src="../Images/Project_2.jpg" alt="Project_2">
                 <p>Project 2</p>
                 <div class="hidden">
                     <br>
@@ -34,7 +34,7 @@
                     </h2>
                 </div>
             </a>
-            <a href="Project_3/GitHub/cscGroep/Config.php">
+            <!-- <a href="https://vmware.com">
                 <p>Project 3</p>
 
                 <img src="../Images/Project_1.jpg" alt="Project_1">
@@ -44,7 +44,7 @@
                         This is a 
                     </h2>
                 </div>
-            </a>
+            </a> -->
         </div>
     </div>
 </body>
