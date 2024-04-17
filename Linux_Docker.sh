@@ -1,6 +1,7 @@
 #!/bin/bash
 
-
+## Allow . files, such as .htaccess to also be move
+shopt -s dotglob
 ## To make sure the commands will be executed correctly.
 cd ~/
 # Update package lists
