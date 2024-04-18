@@ -1,9 +1,11 @@
 #!/bin/bash
 
-## Allow . files, such as .htaccess to also be move
+## Allow. files, such as.htaccess to also be moved
 shopt -s dotglob
+
 ## To make sure the commands will be executed correctly.
 cd ~/
+
 # Update package lists
 sudo apt update
 
@@ -31,10 +33,10 @@ git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b
 # Move the docker-compose.yml file to the home directory
 sudo mv Portfoliowebsite/docker-compose.yml ~/
 
-touch .env
+touch.env
 echo "## You dont need an actual token, but do remember, is will fail to start.
-TUNNEL_TOKEN= " >> ./.env
-echo "MYSQL_ALLOW_AMPTY_PASSWORD=" >> ./.env
+TUNNEL_TOKEN= " >>./.env
+echo "MYSQL_ALLOW_AMPTY_PASSWORD=" >>./.env
 
 # Start the Portfoliowebsite Docker containers in detached mode
 cd ~/ && docker-compose up -d
@@ -55,13 +57,6 @@ sudo mv ~/.Block_B/BBB/public/* ~/.Block_B/
 # Remove the BBB directory
 sudo rm -rf ~/.Block_B/BBB
 
-docker run -d --name CloudFlare-Tunnel \
-  cloudflare/cloudflared:latest \
-  tunnel --no-autoupdate \
-  run --token="${TUNNEL_TOKEN}" || echo "You don't have a Cloudflare tunnel token set. Please set the tunnel token if you wish to continue using a Cloudflare tunnel."
-
-
-# Run the portainer container with restart policy
 # Very nice to have this for seeing the status of all containers.
 docker run -d \
   -p 9000:9000 \
@@ -70,22 +65,3 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v portainer_data:/data \
   portainer/portainer-ce:latest
-
-echo "nameserver 8.8.8.8
-nameserver 1.1.1.1" >> /etc/resolv.conf
-
-
-
-sudo bash -c 'cat << EOF >> /etc/NetworkManager/NetworkManager.conf
-[main]
-dns=none
-
-[ipv4]
-dns-search=
-method=auto
-
-[ipv6]
-addr-gen-mode=stable-privacy
-dns-search=
-method=auto
-EOF'
