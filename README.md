@@ -74,3 +74,8 @@ If you encounter any issues or have suggestions for improvements, feel free to o
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## Updating:
+
+To keep everything up to date, execute the following command: `docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f`.
