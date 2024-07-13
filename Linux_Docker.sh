@@ -16,7 +16,9 @@ sudo apt full-upgrade -y
 sudo apt-mark showhold | xargs sudo apt install -y --allow-change-held-packages 
 
 # Install Docker, Docker Compose, and Git
-sudo apt install docker.io docker-compose git -y
+curl -fsSL https://get.docker.com/ | sh
+
+sudo apt install docker-compose git -y
 
 # Remove unnecessary packages
 sudo apt autoremove -y
@@ -34,7 +36,7 @@ git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b
 sudo mv Portfoliowebsite/docker-compose.yml ~/
 
 touch.env
-echo "## You dont need an actual token, but do remember, is will fail to start.
+echo "## You dont need an actual token, but do remember, it will fail to start.
 TUNNEL_TOKEN= " >>./.env
 echo "MYSQL_ALLOW_AMPTY_PASSWORD=" >>./.env
 
