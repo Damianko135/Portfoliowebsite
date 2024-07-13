@@ -18,8 +18,7 @@ Ensure that you have the following software installed on your system:
 
 - **Node.js**: v12.0.0 or higher
 - **npm**: v6.0.0 or higher
-- **React**: v17.0.0 or higher
-- **MySQL**: v5.7 or higher
+- **docker && docker-compose**
 
 ## Setup Script
 
@@ -50,8 +49,7 @@ You can set up the website on both Linux and Windows servers using the provided 
 2. Run the setup script from the cloned directory:
 
     ```powershell
-    cd Portfoliowebsite
-    .\Windows_Setup.ps1
+    .\Portfoliowebsite\Windows_Setup.ps1
     ```
 
 
