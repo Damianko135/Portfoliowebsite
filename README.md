@@ -9,7 +9,6 @@ Welcome to my portfolio website repository! This website showcases my projects, 
 - **Experience**: Discover my professional experience and achievements.
 
 ## Getting Started
-
 To run this website locally on your device, follow these steps:
 
 ### Prerequisites
@@ -18,11 +17,12 @@ Ensure that you have the following software installed on your system:
 
 - **Node.js**: v12.0.0 or higher
 - **npm**: v6.0.0 or higher
-- **docker && docker-compose**
+- **git**
+- **curl**
 
 ## Setup Script
 
-You can set up the website on both Linux and Windows servers using the provided setup script.
+You can set up the website on Linux based systems.
 
 ### Linux Setup
 
@@ -38,27 +38,7 @@ You can set up the website on both Linux and Windows servers using the provided 
     bash Portfoliowebsite/Linux_Setup.sh || (sudo dpkg --configure -a && bash Portfoliowebsite/Linux_Setup.sh)
     ```
 
-### Windows Setup
 
-1. Clone this repository to your local machine:
-
-    ```powershell
-    git clone -b Bash_Script --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
-    ```
-
-2. Run the setup script from the cloned directory:
-
-    ```powershell
-    .\Portfoliowebsite\Windows_Setup.ps1
-    ```
-
-
-### Uninstallation Scripts
-
-To uninstall the packages installed by the setup scripts and remove any associated software, you can use the provided uninstallation scripts:
-
-- **Linux**: Execute the `Linux_Uninstall.sh` script.
-- **Windows**: Run the `Windows_Uninstall.ps1` script.
 
 ## Customization
 
@@ -76,4 +56,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Updating:
 
-To keep everything up to date, execute the following command: `docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f`.
+To keep everything up to date, the script is initiating a cronjob using the following commands `docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f`.
