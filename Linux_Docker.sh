@@ -22,7 +22,7 @@ echo "Setting up environment variables..."
 
 # Prompt user for variables
 echo "Please provide the required variables:"
-read -p "Cloudflare token (leave empty for now): " TUNNEL_TOKEN
+read -p "Cloudflare token (can be left empty for now): " TUNNEL_TOKEN
 
 read -p "Do you want the MySQL database to be available without a password? (Y/n): " EMPTY_PW
 if [[ "$EMPTY_PW" == "N" || "$EMPTY_PW" == "n" ]]; then
@@ -31,6 +31,7 @@ if [[ "$EMPTY_PW" == "N" || "$EMPTY_PW" == "n" ]]; then
 else
   echo "CAUTION: Using MySQL without a password is not recommended for production."
   EMPTY_PW="yes"
+  sleep 10
 fi
 
 # Write variables to .env file
