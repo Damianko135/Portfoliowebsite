@@ -33,7 +33,7 @@ You can set up the website on Linux based systems.
     ```
 
 2. Run the setup script from the cloned directory:
-
+    *Only works with apt*
     ```bash
     bash Portfoliowebsite/Linux_Setup.sh || (sudo dpkg --configure -a && bash Portfoliowebsite/Linux_Setup.sh)
     ```
