@@ -3,6 +3,7 @@
 # Check if run as root
 if [ $EUID != 0 ]; then
     echo "Please run as root"
+    echo "sudo su to change to root user"
     exit 1
 fi
 
@@ -21,11 +22,18 @@ echo " "
 echo "Setting up environment variables..."
 
 # Prompt user for variables
-echo "Please provide the required variables:"
-read -p "Cloudflare token (can be left empty for now): " TUNNEL_TOKEN
+echo "Please provide the following variables:"
+read -t 10 -p "Cloudflare token (can be left empty for now): " TUNNEL_TOKEN
 
-read -p "Do you want the MySQL database to be available without a password? (Y/n): " EMPTY_PW
-if [[ "$EMPTY_PW" == "N" || "$EMPTY_PW" == "n" ]]; then
+read -t 10 -p "Do you want the MySQL database to be available without a password? (Y/n): " EMPTY_PW
+
+# Default behavior if no input is given (timeout)
+EMPTY_PW=${EMPTY_PW:-"y"}
+
+# Convert to lowercase for case-insensitive comparison
+EMPTY_PW=$(echo "$EMPTY_PW" | tr '[:upper:]' '[:lower:]')
+
+if [[ "$EMPTY_PW" == "n" ]]; then
   echo "You will need to set a password on first login."
   EMPTY_PW="no"
 else
@@ -33,6 +41,7 @@ else
   EMPTY_PW="yes"
   sleep 10
 fi
+
 
 # Write variables to .env file
 echo "Generating .env file..."
@@ -74,28 +83,40 @@ echo "Enabling Docker service..."
 systemctl enable docker
 sleep 5
 
+# Setup cron job for auto-update at midnight
+echo "Setting up cron job for auto-update..."
+crontab -l 2>/dev/null | { cat; echo "0 0 * * * cd $(pwd) && docker-compose down --remove-orphans && docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f"; } | crontab -
+sleep 5
+
 # Clone and setup Portfoliowebsite
 echo "Cloning and setting up Portfoliowebsite..."
 cd ~/
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main
 mv Portfoliowebsite/docker-compose.yml ~/
-cp -rf ~/Portfoliowebsite/Index/* ~/.Portfolio/
-cp -rf ~/Portfoliowebsite/Database/* ~/sql-files/
+cp -rf ~/Portfoliowebsite/Index/* ~/Portfolio/
 rm -rf ~/Portfoliowebsite
-cd ~/ && docker-compose up -d
 sleep 5
 
-# Setup cron job for auto-update at midnight
-echo "Setting up cron job for auto-update..."
-crontab -l 2>/dev/null | { cat; echo "0 0 * * * cd $(pwd) && docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f"; } | crontab -
-sleep 5
 
 # Clone and setup BBB
 echo "Cloning and setting up BBB..."
-mkdir -p ~/.Block_B && cd ~/.Block_B
+mkdir -p ~/Block_B && cd ~/Block_B
 git clone https://github.com/Damianko135/BBB.git
-mv ~/.Block_B/BBB/public/* ~/.Block_B/
-rm -rf ~/.Block_B/BBB
+mv ~/Block_B/BBB/* ~/Block_B/
+rm -rf ~/Block_B/BBB
+sleep 5
+
+# Clone first project
+echo "Cloning first project..."
+mkdir ~/Link-Generator && cd ~/Link-Generator
+git clone https://github.com/Damianko135/Links.git
+
+sleep 5
+
+
+# Start up the containers
+echo "Starting up the containers:"
+cd ~/ && docker-compose up -d
 sleep 5
 
 # Install Portainer for Docker management
@@ -109,6 +130,8 @@ docker run -d \
     portainer/portainer-ce:latest
 sleep 5
 
+
+
 echo "Setup complete."
 
 clear
@@ -116,3 +139,9 @@ echo "----- "
 echo " "
 echo " "
 echo " "
+echo "Completed, have fun! "
+echo "Ps. Check the docker-compose file for the ports which are in use"
+echo "Full log: $LOGFILE"
+echo "PPS: Dont forget to update the .env file"
+echo " "
+cat ~/.env

@@ -15,10 +15,8 @@ To run this website locally on your device, follow these steps:
 
 Ensure that you have the following software installed on your system:
 
-- **Node.js**: v12.0.0 or higher
-- **npm**: v6.0.0 or higher
-- **git**
-- **curl**
+- For now, only automated with Linux, apt as package manager.
+- Script installs required packages.
 
 ## Setup Script
 
@@ -56,4 +54,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Updating:
 
-To keep everything up to date, the script is initiating a cronjob using the following commands `docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f`.
+To keep everything up to date, the script is initiating a cronjob using the following commands `docker-compose down --remove-orphans docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f`.

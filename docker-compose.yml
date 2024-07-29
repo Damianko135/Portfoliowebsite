@@ -16,7 +16,19 @@ services:
       - "8080:80"  
     volumes:
       - ./.Portfolio:/var/www/html
-      - ./apache_logs/portfolio:/var/log/apache2  # Mount log directory
+      - ./apache_logs/portfolio:/var/log/apache2
+    command: >
+      /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
+    restart: unless-stopped
+    depends_on:
+      - mysql
+
+  link-generator:
+    container_name: Links
+    image: php:apache  
+    volumes:
+      - ./Link-Generator:/var/www/html
+      - ./apache_logs/Link-Generator:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
@@ -30,7 +42,7 @@ services:
       - "8081:80"  
     volumes:
       - ./.Block_B:/var/www/html/
-      - ./apache_logs/opleiding_blok_b:/var/log/apache2  # Mount log directory
+      - ./apache_logs/opleiding_blok_b:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
@@ -42,7 +54,7 @@ services:
       - "8082:80"  
     volumes:
       - ./.Block_C:/var/www/html/
-      - ./apache_logs/opleiding_blok_c:/var/log/apache2  # Mount log directory
+      - ./apache_logs/opleiding_blok_c:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
@@ -64,7 +76,7 @@ services:
     container_name: PHPMyAdmin
     image: phpmyadmin
     ports:
-      - "8070:80"  
+      - "8070:8080"  
     depends_on:
       - mysql
     restart: unless-stopped
