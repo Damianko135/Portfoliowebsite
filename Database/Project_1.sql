@@ -13,4 +13,4 @@ CREATE TABLE links (
 );
 
 INSERT INTO links (Link, Username, userIP, Date) 
-VALUES ('https://youtu.be/xvFZjo5PgG0?si=mWhC94yeSyCt2Nst', 'Damian', 'localhost', NOW());
+VALUES ('https://youtu.be/xvFZjo5PgG0?si=mWhC94yeSyCt2Nst?autoplay=1&mute=1', 'Initiator', 'localhost', NOW());
