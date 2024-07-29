@@ -42,6 +42,8 @@ else
   sleep 10
 fi
 
+shopt -s dotglob
+
 
 # Write variables to .env file
 echo "Generating .env file..."
@@ -88,15 +90,26 @@ echo "Setting up cron job for auto-update..."
 crontab -l 2>/dev/null | { cat; echo "0 0 * * * cd $(pwd) && docker-compose down --remove-orphans && docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f"; } | crontab -
 sleep 5
 
+mkdir ~/sql-files
+
 # Clone and setup Portfoliowebsite
 echo "Cloning and setting up Portfoliowebsite..."
 cd ~/
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main
 mv Portfoliowebsite/docker-compose.yml ~/
-cp -rf ~/Portfoliowebsite/Index/* ~/Portfolio/
+mv -rf ~/Portfoliowebsite/Index/* ~/Portfolio/
 rm -rf ~/Portfoliowebsite
 sleep 5
 
+# Clone first project
+echo "Cloning first project..."
+mkdir ~/Link-Generator && cd ~/Link-Generator
+git clone https://github.com/Damianko135/Links.git
+mv Links/* ~/Link-Generator && mv Links/.??* ~/Link-Generator
+mv Scripts/Link-gen ~/sql-files
+
+
+sleep 5
 
 # Clone and setup BBB
 echo "Cloning and setting up BBB..."
@@ -106,12 +119,6 @@ mv ~/Block_B/BBB/* ~/Block_B/
 rm -rf ~/Block_B/BBB
 sleep 5
 
-# Clone first project
-echo "Cloning first project..."
-mkdir ~/Link-Generator && cd ~/Link-Generator
-git clone https://github.com/Damianko135/Links.git
-
-sleep 5
 
 
 # Start up the containers
@@ -131,8 +138,11 @@ docker run -d \
 sleep 5
 
 
+shopt -u dotglob
 
 echo "Setup complete."
+
+sleep 5
 
 clear
 echo "----- "
@@ -145,3 +155,4 @@ echo "Full log: $LOGFILE"
 echo "PPS: Dont forget to update the .env file"
 echo " "
 cat ~/.env
+

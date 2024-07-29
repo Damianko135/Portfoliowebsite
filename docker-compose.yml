@@ -23,7 +23,7 @@ services:
     depends_on:
       - mysql
 
-  link-generator:
+  opleiding_blok_a:
     container_name: Links
     image: php:apache  
     volumes:
@@ -36,7 +36,7 @@ services:
       - mysql
     
   opleiding_blok_b:
-    container_name: Blok_B
+    container_name: BBB
     image: php:apache
     ports:
       - "8081:80"  
@@ -53,7 +53,7 @@ services:
     ports:
       - "8082:80"  
     volumes:
-      - ./.Block_C:/var/www/html/
+      - ./Block_C:/var/www/html/
       - ./apache_logs/opleiding_blok_c:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
@@ -67,7 +67,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
       MYSQL_ROOT_HOST: '%'
     volumes:
-      - ./.mysql_data:/var/lib/mysql
+      - ./mysql_data:/var/lib/mysql
       - ./sql-files:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
@@ -81,18 +81,18 @@ services:
       - mysql
     restart: unless-stopped
     
-  minecraft:
-    container_name: Minecraft
-    image: itzg/minecraft-server
-    tty: true
-    stdin_open: true
-    ports:
-      - "25565:25565"  
-    environment:
-      EULA: "TRUE"
-    restart: unless-stopped
-    volumes:
-      - ./.Minecraft:/data
+  # minecraft:
+  #   container_name: Minecraft
+  #   image: itzg/minecraft-server
+  #   tty: true
+  #   stdin_open: true
+  #   ports:
+  #     - "25565:25565"  
+  #   environment:
+  #     EULA: "TRUE"
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./.Minecraft:/data
     
   uptime-kuma:
     container_name: kuma
