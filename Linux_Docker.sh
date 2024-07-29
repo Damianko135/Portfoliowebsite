@@ -7,7 +7,6 @@ if [ $EUID != 0 ]; then
     exit 1
 fi
 
-
 # Define the log file
 LOGFILE=$(mktemp ~/setup-log.XXXXXX)
 
@@ -21,39 +20,48 @@ echo " "
 echo " "
 echo "Setting up environment variables..."
 
-# Prompt user for variables
-echo "Please provide the following variables:"
-read -t 10 -p "Cloudflare token (can be left empty for now): " TUNNEL_TOKEN
+# Check if .env file exists
+if [ ! -f ~/.env ]; then
 
-read -t 10 -p "Do you want the MySQL database to be available without a password? (Y/n): " EMPTY_PW
+    # Prompt user for variables
+    echo "Please provide the following variables:"
+    read -t 10 -p "Cloudflare token (can be left empty for now): " TUNNEL_TOKEN
 
-# Default behavior if no input is given (timeout)
-EMPTY_PW=${EMPTY_PW:-"y"}
+    read -t 10 -p "Do you want the MySQL database to be available without a password? (Y/n): " EMPTY_PW
 
-# Convert to lowercase for case-insensitive comparison
-EMPTY_PW=$(echo "$EMPTY_PW" | tr '[:upper:]' '[:lower:]')
+    # Default behavior if no input is given (timeout)
+    EMPTY_PW=${EMPTY_PW:-"y"}
 
-if [[ "$EMPTY_PW" == "n" ]]; then
-  echo "You will need to set a password on first login."
-  EMPTY_PW="no"
-else
-  echo "CAUTION: Using MySQL without a password is not recommended for production."
-  EMPTY_PW="yes"
-  sleep 10
-fi
+    # Convert to lowercase for case-insensitive comparison
+    EMPTY_PW=$(echo "$EMPTY_PW" | tr '[:upper:]' '[:lower:]')
 
-shopt -s dotglob
+    if [[ "$EMPTY_PW" == "n" ]]; then
+        echo "You will need to set a password on first login."
+        EMPTY_PW="no"
+    else
+        echo "CAUTION: Using MySQL without a password is not recommended for production."
+        EMPTY_PW="yes"
+        sleep 10
+    fi
 
+    shopt -s dotglob
 
-# Write variables to .env file
-echo "Generating .env file..."
-cat <<EOF > ~/.env
+    # Write variables to .env file
+    echo "Generating .env file..."
+    cat <<EOF > ~/.env
 ## Example .env file
 TUNNEL_TOKEN="$TUNNEL_TOKEN"
 MYSQL_ALLOW_EMPTY_PASSWORD="$EMPTY_PW"
 EOF
 
-sleep 5
+    sleep 5
+
+else
+    echo ".env file already exists. Skipping variable setup."
+fi
+
+# Proceed with other setup steps...
+
 
 # Update and upgrade packages
 echo "Updating and upgrading packages..."
@@ -71,7 +79,8 @@ sleep 5
 
 # Install Docker Compose
 echo "Installing Docker Compose..."
-curl -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+VERSION=$(curl --silent "https://api.github.com/repos/docker/compose/releases/latest" | jq -r .tag_name)
+curl -fsSL "https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 sleep 5
 
@@ -83,14 +92,15 @@ sleep 5
 # Enable Docker service
 echo "Enabling Docker service..."
 systemctl enable docker
+systemctl start docker || { echo "Docker service failed to start. Exiting."; exit 1; }
 sleep 5
 
 # Setup cron job for auto-update at midnight
 echo "Setting up cron job for auto-update..."
-crontab -l 2>/dev/null | { cat; echo "0 0 * * * cd $(pwd) && docker-compose down --remove-orphans && docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f"; } | crontab -
+echo "0 0 * * * cd $(pwd) && docker-compose down --remove-orphans && docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f" > /etc/cron.d/docker-autoupdate
 sleep 5
 
-mkdir ~/sql-files
+mkdir -p ~/Portfolio ~/Link-Generator ~/sql-files
 
 # Clone and setup Portfoliowebsite
 echo "Cloning and setting up Portfoliowebsite..."
@@ -103,23 +113,21 @@ sleep 5
 
 # Clone first project
 echo "Cloning first project..."
-mkdir ~/Link-Generator && cd ~/Link-Generator
+cd ~/Link-Generator
 git clone https://github.com/Damianko135/Links.git
-mv Links/* ~/Link-Generator && mv Links/.??* ~/Link-Generator
+mv Links/* ~/Link-Generator
+mv Links/.??* ~/Link-Generator
 mv Scripts/Link-gen ~/sql-files
-
-
 sleep 5
 
 # Clone and setup BBB
 echo "Cloning and setting up BBB..."
-mkdir -p ~/Block_B && cd ~/Block_B
+mkdir -p ~/Block_B
+cd ~/Block_B
 git clone https://github.com/Damianko135/BBB.git
-mv ~/Block_B/BBB/* ~/Block_B/
+mv BBB/* ~/Block_B/
 rm -rf ~/Block_B/BBB
 sleep 5
-
-
 
 # Start up the containers
 echo "Starting up the containers:"
@@ -137,7 +145,6 @@ docker run -d \
     portainer/portainer-ce:latest
 sleep 5
 
-
 shopt -u dotglob
 
 echo "Setup complete."
@@ -152,7 +159,6 @@ echo " "
 echo "Completed, have fun! "
 echo "Ps. Check the docker-compose file for the ports which are in use"
 echo "Full log: $LOGFILE"
-echo "PPS: Dont forget to update the .env file"
+echo "PPS: Don't forget to update the .env file"
 echo " "
 cat ~/.env
-
