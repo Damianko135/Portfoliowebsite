@@ -24,17 +24,13 @@ You can set up the website on Linux based systems.
 
 ### Linux Setup
 
-1. Clone this repository to your local machine:
+1. Runs the script, using apt package manager
 
     ```bash
-    git clone -b main --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    curl -sSL https://raw.githubusercontent.com/Damianko135/Portfoliowebsite/main/Linux_Docker.sh | bash
     ```
 
-2. Run the setup script from the cloned directory:
-    *Only works with apt*
-    ```bash
-    bash Portfoliowebsite/Linux_Docker.sh || (sudo dpkg --configure -a && bash Portfoliowebsite/Linux_Docker.sh)
-    ```
+
 
 
 
