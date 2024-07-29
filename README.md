@@ -27,7 +27,7 @@ You can set up the website on Linux based systems.
 1. Clone this repository to your local machine:
 
     ```bash
-    git clone -b Bash_Script --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
+    git clone -b main --single-branch https://github.com/Damianko135/Portfoliowebsite.git || echo "Failed to clone repository"
     ```
 
 2. Run the setup script from the cloned directory:
