@@ -43,7 +43,7 @@ fi
 # Update and upgrade packages
 echo "Updating and upgrading packages..."
 apt-get update && apt-get full-upgrade -y
-apt-mark showhold | xargs apt-get install -y --allow-change-held-packages || true
+apt-mark showhold | xargs apt-get install -y --allow-change-held-packages
 
 # Install Docker if not already installed
 if ! command -v docker &> /dev/null || ! command -v docker-compose &> /dev/null; then
@@ -51,39 +51,39 @@ if ! command -v docker &> /dev/null || ! command -v docker-compose &> /dev/null;
 
     # Install necessary packages and tools
     echo "Installing dependencies..."
-    apt-get install -y ca-certificates curl gnupg lsb-release || true
+    apt-get install -y ca-certificates curl gnupg lsb-release
 
     # Add Docker's official GPG key
     echo "Adding Docker's GPG key..."
-    mkdir -p /etc/apt/keyrings || true
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg || true
+    mkdir -p /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
     # Set up the Docker repository
     echo "Setting up Docker repository..."
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null || true
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
     # Update package index
     echo "Updating package index..."
-    apt-get update || true
+    apt-get update
 
     # Install Docker and Docker Compose
     echo "Installing Docker and Docker Compose..."
-    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose || true
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose
 
     # Add the current user to the Docker group
     echo "Adding user $USER to the Docker group..."
-    usermod -aG docker $USER || true
+    usermod -aG docker $USER
 
     # Enable and start Docker service
     echo "Enabling Docker service..."
-    systemctl enable docker || true
+    systemctl enable docker
     echo "Starting Docker service..."
-    systemctl start docker || true
+    systemctl start docker
 
     # Verify installation
     echo "Verifying Docker installation..."
-    docker --version || true
-    docker-compose --version || true
+    docker --version
+    docker-compose --version
 
     echo "Docker installation completed successfully."
 else
@@ -93,7 +93,7 @@ fi
 # Install Git if not already installed
 if ! command -v git &> /dev/null; then
     echo "Installing Git..."
-    apt-get install -y git || true
+    apt-get install -y git
 else
     echo "Git is already installed."
 fi
@@ -129,7 +129,13 @@ mv BBB/* ~/Block_B/
 
 # Start containers
 echo "Starting up the containers:"
-cd ~/ && docker-compose up -d
+
+cd ~/ 
+if [ -d ~/mysql_data/ ]; then
+ message=" You alreadt have a database running with this volume, you might need to run the sql scripts by hand "
+fi
+find ~ -type f -name "*.sql" ! -path "~/mysql_data/*" -exec mv {} ~/sql-files \;
+docker-compose up -d
 
 # Manage Portainer
 echo "Creating and starting Portainer container..."
@@ -155,3 +161,5 @@ echo "Completed, have fun!"
 echo "Ps. Check the docker-compose file for the ports which are in use"
 echo "Full log: $LOGFILE"
 echo "PPS: Don't forget to update the .env file"
+echo "Message: $message"
+
