@@ -14,8 +14,7 @@ clear
 echo "----- Setting up environment variables..."
 
 # Handle .env file
-ENV_FILE=~/.env
-if [ ! -f "$ENV_FILE" ]; then
+if [ ! -f ~/.env ]; then
     echo "Please provide the following variables:"
     read -t 10 -p "Cloudflare token (can be left empty for now): " TUNNEL_TOKEN
     read -t 10 -p "Do you want the MySQL database to be available without a password? (Y/n): " EMPTY_PW
@@ -24,17 +23,15 @@ if [ ! -f "$ENV_FILE" ]; then
     EMPTY_PW=$(echo "$EMPTY_PW" | tr '[:upper:]' '[:lower:]')
 
     if [[ "$EMPTY_PW" == "n" ]]; then
-        echo "You will need to set a password on first login."
         EMPTY_PW="no"
     else
-        echo "CAUTION: Using MySQL without a password is not recommended for production."
         EMPTY_PW="yes"
+        echo "CAUTION: Using MySQL without a password is not recommended for production."
         sleep 10
     fi
 
-    # Create .env file
     echo "Generating .env file..."
-    cat <<EOF > "$ENV_FILE"
+    cat <<EOF > ~/.env
 ## Example .env file
 TUNNEL_TOKEN="$TUNNEL_TOKEN"
 MYSQL_ALLOW_EMPTY_PASSWORD="$EMPTY_PW"
@@ -84,21 +81,23 @@ systemctl enable docker
 echo "Setting up cron job for auto-update..."
 crontab -l 2>/dev/null | { cat; echo "0 0 * * * cd $(pwd) && docker-compose down --remove-orphans && docker-compose pull && docker-compose up --force-recreate --build -d && docker image prune -f"; } | crontab -
 
+# Ensure sql-files directory exists
+mkdir -p ~/sql-files
+
 # Clone and setup Portfoliowebsite
 echo "Cloning and setting up Portfoliowebsite..."
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main
-
-# Move files to their locations
 mv ~/Portfoliowebsite/docker-compose.yml ~/
 mkdir -p ~/Portfolio
 mv ~/Portfoliowebsite/Index/* ~/Portfolio/
+mkdir -p ~/sql-files
 mv ~/Portfoliowebsite/*.sql ~/sql-files
 
 # Clone first project
 echo "Cloning first project..."
 mkdir -p ~/Link-Generator && cd ~/Link-Generator
 git clone https://github.com/Damianko135/Links.git
-mv -rf Links/*.sql ~/sql-files
+mv Links/*.sql ~/sql-files
 mv Links/* ~/Link-Generator
 
 # Clone and setup BBB
@@ -138,10 +137,6 @@ rm -rf BBB
 rm -rf Links
 rm -rf ~/Portfoliowebsite
 
-find ./ -name "*.sql" -exec mv {} ~/sql-files \;
-
-
-
 echo "Setup complete."
 sleep 5
 clear
@@ -149,4 +144,3 @@ echo "Completed, have fun!"
 echo "Ps. Check the docker-compose file for the ports which are in use"
 echo "Full log: $LOGFILE"
 echo "PPS: Don't forget to update the .env file"
-cat "$ENV_FILE"
