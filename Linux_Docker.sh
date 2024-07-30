@@ -46,24 +46,16 @@ apt-get update && apt-get full-upgrade -y
 apt-mark showhold | xargs apt-get install -y --allow-change-held-packages
 
 # Install Docker
-if ! command -v docker &> /dev/null; then
+if ! command -v docker &> /dev/null && ! command -v docker-compose &> /dev/null; then
     echo "Installing Docker..."
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh get-docker.sh
     rm -f get-docker.sh
 else
-    echo "Docker is already installed."
+    echo "Docker is ready."
 fi
 
-# Install Docker Compose
-if ! command -v docker-compose &> /dev/null; then
-    echo "Installing Docker Compose..."
-    LATEST_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
-    curl -fsSL https://github.com/docker/compose/releases/download/$LATEST_VERSION/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-else
-    echo "Docker Compose is already installed."
-fi
+
 
 # Install Git
 if ! command -v git &> /dev/null; then
