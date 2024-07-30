@@ -68,7 +68,7 @@ if ! command -v docker &> /dev/null || ! command -v docker-compose &> /dev/null;
 
     # Install Docker and Docker Compose
     echo "Installing Docker and Docker Compose..."
-    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin || true
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose || true
 
     # Add the current user to the Docker group
     echo "Adding user $USER to the Docker group..."
