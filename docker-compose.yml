@@ -15,7 +15,7 @@ services:
     ports:
       - "8080:80"  
     volumes:
-      - ./.Portfolio:/var/www/html
+      - ./Portfolio:/var/www/html
       - ./apache_logs/portfolio:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"

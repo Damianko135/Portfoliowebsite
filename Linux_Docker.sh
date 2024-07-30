@@ -86,23 +86,20 @@ crontab -l 2>/dev/null | { cat; echo "0 0 * * * cd $(pwd) && docker-compose down
 
 # Clone and setup Portfoliowebsite
 echo "Cloning and setting up Portfoliowebsite..."
-PORTFOLIO_DIR=~/Portfoliowebsite
-if [ -d "$PORTFOLIO_DIR" ]; then
-    echo "$PORTFOLIO_DIR already exists. Moving it to a backup location."
-    mv "$PORTFOLIO_DIR" "${PORTFOLIO_DIR}_backup"
-fi
 git clone https://github.com/Damianko135/Portfoliowebsite.git --single-branch -b main
 
 # Move files to their locations
 mv ~/Portfoliowebsite/docker-compose.yml ~/
 mkdir -p ~/Portfolio
 mv ~/Portfoliowebsite/Index/* ~/Portfolio/
+mv ~/Portfoliowebsite/*.sql ~/sql-files
 rm -rf ~/Portfoliowebsite
 
 # Clone first project
 echo "Cloning first project..."
 mkdir -p ~/Link-Generator && cd ~/Link-Generator
 git clone https://github.com/Damianko135/Links.git
+mv -rf Links/*.sql ~/sql-files
 mv Links/* ~/Link-Generator
 rm -rf Links
 
@@ -110,6 +107,7 @@ rm -rf Links
 echo "Cloning and setting up BBB..."
 mkdir -p ~/Block_B && cd ~/Block_B
 git clone https://github.com/Damianko135/BBB.git
+mv -rf BBB/*.sql ~/sql-files
 mv BBB/* ~/Block_B/
 rm -rf BBB
 
