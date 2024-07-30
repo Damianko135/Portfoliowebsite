@@ -93,7 +93,6 @@ mv ~/Portfoliowebsite/docker-compose.yml ~/
 mkdir -p ~/Portfolio
 mv ~/Portfoliowebsite/Index/* ~/Portfolio/
 mv ~/Portfoliowebsite/*.sql ~/sql-files
-rm -rf ~/Portfoliowebsite
 
 # Clone first project
 echo "Cloning first project..."
@@ -101,15 +100,12 @@ mkdir -p ~/Link-Generator && cd ~/Link-Generator
 git clone https://github.com/Damianko135/Links.git
 mv -rf Links/*.sql ~/sql-files
 mv Links/* ~/Link-Generator
-rm -rf Links
 
 # Clone and setup BBB
 echo "Cloning and setting up BBB..."
 mkdir -p ~/Block_B && cd ~/Block_B
 git clone https://github.com/Damianko135/BBB.git
-mv -rf BBB/*.sql ~/sql-files
 mv BBB/* ~/Block_B/
-rm -rf BBB
 
 # Start containers
 echo "Starting up the containers:"
@@ -134,6 +130,17 @@ if ! docker ps -q -f name=portainer &> /dev/null; then
 else
     echo "Portainer is already running."
 fi
+
+# Cleanup
+echo "Cleaning up..."
+cd ~/
+rm -rf BBB
+rm -rf Links
+rm -rf ~/Portfoliowebsite
+
+find ./ -name "*.sql" -exec mv {} ~/sql-files \;
+
+
 
 echo "Setup complete."
 sleep 5
