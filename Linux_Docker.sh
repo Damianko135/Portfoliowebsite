@@ -2,7 +2,7 @@
 
 # Check if run as root
 if [ "$EUID" -ne 0 ]; then
-    echo "Please run as root. Use sudo su to change to root user."
+    echo "Please run as root. Use su to change to root user."
     exit 1
 fi
 
@@ -43,31 +43,60 @@ fi
 # Update and upgrade packages
 echo "Updating and upgrading packages..."
 apt-get update && apt-get full-upgrade -y
-apt-mark showhold | xargs apt-get install -y --allow-change-held-packages
+apt-mark showhold | xargs apt-get install -y --allow-change-held-packages || true
 
-# Install Docker
-if ! command -v docker &> /dev/null && ! command -v docker-compose &> /dev/null; then
-    echo "Installing Docker..."
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sh get-docker.sh
-    rm -f get-docker.sh
+# Install Docker if not already installed
+if ! command -v docker &> /dev/null || ! command -v docker-compose &> /dev/null; then
+    echo "Installing Docker and Docker Compose..."
+
+    # Install necessary packages and tools
+    echo "Installing dependencies..."
+    apt-get install -y ca-certificates curl gnupg lsb-release || true
+
+    # Add Docker's official GPG key
+    echo "Adding Docker's GPG key..."
+    mkdir -p /etc/apt/keyrings || true
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg || true
+
+    # Set up the Docker repository
+    echo "Setting up Docker repository..."
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null || true
+
+    # Update package index
+    echo "Updating package index..."
+    apt-get update || true
+
+    # Install Docker and Docker Compose
+    echo "Installing Docker and Docker Compose..."
+    apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin || true
+
+    # Add the current user to the Docker group
+    echo "Adding user $USER to the Docker group..."
+    usermod -aG docker $USER || true
+
+    # Enable and start Docker service
+    echo "Enabling Docker service..."
+    systemctl enable docker || true
+    echo "Starting Docker service..."
+    systemctl start docker || true
+
+    # Verify installation
+    echo "Verifying Docker installation..."
+    docker --version || true
+    docker-compose --version || true
+
+    echo "Docker installation completed successfully."
 else
-    echo "Docker is ready."
+    echo "Docker is already installed."
 fi
 
-
-
-# Install Git
+# Install Git if not already installed
 if ! command -v git &> /dev/null; then
     echo "Installing Git..."
-    apt-get install -y git
+    apt-get install -y git || true
 else
     echo "Git is already installed."
 fi
-
-# Enable Docker service
-echo "Enabling Docker service..."
-systemctl enable docker
 
 # Setup cron job
 echo "Setting up cron job for auto-update..."
@@ -103,24 +132,14 @@ echo "Starting up the containers:"
 cd ~/ && docker-compose up -d
 
 # Manage Portainer
-echo "Checking Portainer..."
-if ! docker ps -q -f name=portainer &> /dev/null; then
-    if docker ps -aq -f name=portainer &> /dev/null; then
-        echo "Portainer container exists but is not running. Starting it..."
-        docker start portainer
-    else
-        echo "Portainer container does not exist. Creating and starting it..."
-        docker run -d \
-            -p 9000:9000 \
-            --name portainer \
-            --restart always \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v portainer_data:/data \
-            portainer/portainer-ce:latest
-    fi
-else
-    echo "Portainer is already running."
-fi
+echo "Creating and starting Portainer container..."
+docker run -d \
+    -p 9000:9000 \
+    --name portainer \
+    --restart always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v portainer_data:/data \
+    portainer/portainer-ce:latest
 
 # Cleanup
 echo "Cleaning up..."
