@@ -122,7 +122,8 @@ services:
       container_name: twingate_connector
       image: twingate/connector:latest
       environment:
-        - TWINGATE_NETWORK="dkorver"
+        # Because twingate is stupid, no quotes for the values:
+        - TWINGATE_NETWORK=dkorver
         - TWINGATE_ACCESS_TOKEN=${TWINGATE_ACCESS_TOKEN}
         - TWINGATE_REFRESH_TOKEN=${TWINGATE_REFRESH_TOKEN}
         # -- (Optional) Change loglevel
