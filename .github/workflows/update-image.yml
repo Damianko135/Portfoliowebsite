@@ -31,12 +31,12 @@ jobs:
       - name: List all files
         run: |
           ls -alF
-          ls -alF index/
+          ls -alF Index/
 
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./index/Dockerfile
+          file: ./Index/Dockerfile
           push: true
           tags: user/app:latest
