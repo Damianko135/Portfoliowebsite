@@ -28,5 +28,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ github.event.repository.name }}:latest
+          tags: first-portfolio:latest
           build-args: VERSION=${{ github.event.repository.name }}-${{ github.run_number }}
