@@ -81,19 +81,6 @@ services:
       - mysql
     restart: unless-stopped
     
-  # minecraft:
-  #   container_name: Minecraft
-  #   image: itzg/minecraft-server
-  #   tty: true
-  #   stdin_open: true
-  #   ports:
-  #     - "25565:25565"  
-  #   environment:
-  #     EULA: "TRUE"
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./.Minecraft:/data
-    
   uptime-kuma:
     container_name: kuma
     image: louislam/uptime-kuma:latest
