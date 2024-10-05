@@ -39,4 +39,4 @@ jobs:
           context: .
           file: ./Index/Dockerfile
           push: true
-          tags: user/app:latest
+          tags: ${{ vars.DOCKER_USER }}/first-portfolio:latest
