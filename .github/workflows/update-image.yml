@@ -26,6 +26,10 @@ jobs:
             username: ${{ vars.DOCKER_USER }}
             password: ${{ secrets.DOCKER_TOKEN }}
       -
+        name: list all files
+        run: ls -alF
+
+      -
         name: Build and push
         uses: docker/build-push-action@v6
         with:
