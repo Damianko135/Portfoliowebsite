@@ -3,11 +3,11 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - main  # Change to your default branch name (e.g., 'main' or 'master')
+      - main # Change to your default branch name (e.g., 'main' or 'master')
   pull_request:
     branches:
       - main
-  workflow_dispatch:   
+  workflow_dispatch:
 
 jobs:
   docker:

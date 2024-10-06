@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   cloudflared-tunnel:
@@ -8,12 +8,12 @@ services:
     command: tunnel run
     environment:
       - TUNNEL_TOKEN=$TUNNEL_TOKEN
-      
+
   portfolio:
     container_name: Portfolio
     image: php:apache
     ports:
-      - "8080:80"  
+      - "8080:80"
     volumes:
       - ./Portfolio:/var/www/html
       - ./apache_logs/portfolio:/var/log/apache2
@@ -25,7 +25,7 @@ services:
 
   opleiding_blok_a:
     container_name: Links
-    image: php:apache  
+    image: php:apache
     volumes:
       - ./Link-Generator:/var/www/html
       - ./apache_logs/Link-Generator:/var/log/apache2
@@ -34,70 +34,70 @@ services:
     restart: unless-stopped
     depends_on:
       - mysql
-    
+
   opleiding_blok_b:
     container_name: BBB
     image: php:apache
     ports:
-      - "8081:80"  
+      - "8081:80"
     volumes:
       - ./.Block_B:/var/www/html/
       - ./apache_logs/opleiding_blok_b:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
-    
+
   opleiding_blok_c:
     container_name: Blok_C
     image: php:apache
     ports:
-      - "8082:80"  
+      - "8082:80"
     volumes:
       - ./Block_C:/var/www/html/
       - ./apache_logs/opleiding_blok_c:/var/log/apache2
     command: >
       /bin/bash -c "a2enmod rewrite && docker-php-ext-install pdo_mysql && apache2-foreground"
     restart: unless-stopped
-    
+
   mysql:
     container_name: Database
     image: mysql:latest
     restart: unless-stopped
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_HOST: "%"
     volumes:
       - ./mysql_data:/var/lib/mysql
       - ./sql-files:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-    
+
   phpmyadmin:
     container_name: PHPMyAdmin
     image: phpmyadmin
     ports:
-      - "8070:8080"  
+      - "8070:8080"
     depends_on:
       - mysql
     restart: unless-stopped
-    
+
   uptime-kuma:
     container_name: kuma
     image: louislam/uptime-kuma:latest
     ports:
-      - "3001:3001"   
+      - "3001:3001"
     volumes:
       - ./.uptime-kuma:/app/Database
     restart: always
     depends_on:
       - portfolio
-    
+
   dockge:
     container_name: dockge
     image: louislam/dockge:1
     restart: unless-stopped
     ports:
-      - 5001:5001   
+      - 5001:5001
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/app/data
@@ -106,20 +106,20 @@ services:
       - DOCKGE_STACKS_DIR=/home/orangepi
 
   twingate_connector:
-      container_name: twingate_connector
-      image: twingate/connector:latest
-      environment:
-        # Because twingate is stupid, no quotes for the values:
-        - TWINGATE_NETWORK=dkorver
-        - TWINGATE_ACCESS_TOKEN=${TWINGATE_ACCESS_TOKEN}
-        - TWINGATE_REFRESH_TOKEN=${TWINGATE_REFRESH_TOKEN}
-        # -- (Optional) Change loglevel
-        # - TWINGATE_LOG_LEVEL=3
-        # -- (Optional) Add custom DNS Server
-        # - TWINGATE_DNS=10.20.0.1
-      sysctls:
-        net.ipv4.ping_group_range: "0 2147483647"
-      # -- (Optional) When using a custom network
-      # networks:
-      #   - your-custom-network
-      restart: unless-stopped
+    container_name: twingate_connector
+    image: twingate/connector:latest
+    environment:
+      # Because twingate is stupid, no quotes for the values:
+      - TWINGATE_NETWORK=dkorver
+      - TWINGATE_ACCESS_TOKEN=${TWINGATE_ACCESS_TOKEN}
+      - TWINGATE_REFRESH_TOKEN=${TWINGATE_REFRESH_TOKEN}
+      # -- (Optional) Change loglevel
+      # - TWINGATE_LOG_LEVEL=3
+      # -- (Optional) Add custom DNS Server
+      # - TWINGATE_DNS=10.20.0.1
+    sysctls:
+      net.ipv4.ping_group_range: "0 2147483647"
+    # -- (Optional) When using a custom network
+    # networks:
+    #   - your-custom-network
+    restart: unless-stopped

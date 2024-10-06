@@ -9,6 +9,7 @@ Welcome to my portfolio website repository! This website showcases my projects, 
 - **Experience**: Discover my professional experience and achievements.
 
 ## Getting Started
+
 To run this website locally on your device, follow these steps:
 
 ### Prerequisites
@@ -26,13 +27,9 @@ You can set up the website on Linux based systems.
 
 1. Runs the script, using apt package manager
 
-    ```bash
-    curl -sSL https://raw.githubusercontent.com/Damianko135/Portfoliowebsite/main/Linux_Docker.sh | bash
-    ```
-
-
-
-
+   ```bash
+   curl -sSL https://raw.githubusercontent.com/Damianko135/Portfoliowebsite/main/Linux_Docker.sh | bash
+   ```
 
 ## Customization
 
@@ -46,7 +43,6 @@ If you encounter any issues or have suggestions for improvements, feel free to o
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 
 ## Updating:
 
