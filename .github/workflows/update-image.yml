@@ -40,3 +40,4 @@ jobs:
           file: ./Index/Dockerfile
           push: true
           tags: ${{ vars.DOCKER_USER }}/first-portfolio:latest
+          platforms: linux/amd64,linux/arm64
